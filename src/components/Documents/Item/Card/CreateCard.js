@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Button, Text } from "react-native";
-import Modal, { SlideAnimation } from "react-native-modals";
+
+import BottomModal from "../../../Modals/BottomModal";
 
 export default CreateCard = props => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,27 +9,26 @@ export default CreateCard = props => {
     // Share.share({
     //   message: "React Native | A framework for building native apps using React"
     // });
-    setIsVisible(true);
-    // props.setData(prevData => {
-    //   const prevNumber = parseInt(
-    //     prevData[prevData.length - 1].title.split(" ")[1],
-    //     10
-    //   );
-    //   return [
-    //     ...prevData,
-    //     ...[
-    //       {
-    //         title: `Chapitre ${prevNumber >= 9 ? 1 : prevNumber + 1}`,
-    //         color: prevNumber % 2 == 0 ? "rgb(48, 209, 88)" : "rgb(255, 149, 0)"
-    //       }
-    //     ]
-    //   ];
-    // });
+    props.setData(prevData => {
+      const prevNumber = parseInt(
+        prevData[prevData.length - 1].title.split(" ")[1],
+        10
+      );
+      return [
+        ...prevData,
+        ...[
+          {
+            title: `Note ${prevNumber >= 9 ? 1 : prevNumber + 1}`,
+            color: prevNumber % 2 == 0 ? "rgb(48, 209, 88)" : "rgb(255, 149, 0)"
+          }
+        ]
+      ];
+    });
   }
   return (
     <TouchableOpacity
       style={{ alignItems: "center", marginLeft: 30 }}
-      onPress={() => createCard()}
+      onPress={() => setIsVisible(true)}
     >
       <View
         style={{
@@ -46,40 +46,19 @@ export default CreateCard = props => {
       >
         <Text style={{ fontSize: 40, color: props.theme.blue }}>+</Text>
       </View>
-      <Button title="New" onPress={() => createCard()} />
-      <Modal
-        onTouchOutside={() => {
-          setIsVisible(false);
-        }}
-        width={0.9}
-        overlayOpacity={0.5}
-        visible={isVisible}
-        rounded
-        actionsBordered
-        modalStyle={{ borderRadius: 10, top: 400 }}
-        modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
-      >
-        <TouchableOpacity
-          style={{
-            backgroundColor: "white",
-            height: 40,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-          onPress={() => setIsVisible(false)}
-        >
-          <Text
-            style={{
-              position: "absolute",
-              fontFamily: "sf-display-bold",
-              fontSize: 17
-            }}
-          >
-            OK
-          </Text>
-        </TouchableOpacity>
-      </Modal>
+      <Button title="New" onPress={() => setIsVisible(true)} />
+      <BottomModal
+        {...props}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        content={[
+          { title: "QuickNote", function: createCard },
+          { title: "Book", function: createCard },
+          { title: "Folder", function: createCard },
+          { title: "Import", function: createCard },
+          { title: "Cancel" }
+        ]}
+      />
     </TouchableOpacity>
   );
 };
