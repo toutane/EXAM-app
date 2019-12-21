@@ -5,10 +5,15 @@ import { screenHeight } from "../../utils/dimensions";
 import { ThemeContext } from "../../contexts/theme-context";
 
 import DocsHeader from "./Header";
+import FilterBar from "./FilterBar";
+import DocsFlatList from "./FlatList";
 
 export default DocsView = () => {
   const { theme, switchTheme } = useContext(ThemeContext);
+  const [filterBy, setFilterBy] = useState("Date");
+  const [viewMode, setViewMode] = useState("Card");
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+
   _getTitleOpacity = () => {
     return scrollY.interpolate({
       inputRange: [0, 35, 36, 100],
@@ -30,13 +35,14 @@ export default DocsView = () => {
         onScroll={Animated.event([
           { nativeEvent: { contentOffset: { y: scrollY } } }
         ])}
-        contentContainerStyle={{ marginHorizontal: 32, marginTop: 100 }}
+        contentContainerStyle={{ marginTop: 100 }}
         scrollEventThrottle={16}
         snapToAlignment={"start"}
         snapToInterval={60}
       >
         <Animated.Text
           style={{
+            marginLeft: 15,
             opacity: titleOpacity,
             fontSize: 34,
             fontFamily: "sf-display-bold",
@@ -45,7 +51,13 @@ export default DocsView = () => {
         >
           Documents
         </Animated.Text>
-        <Button title="switch theme" onPress={() => switchTheme()}></Button>
+        <FilterBar filterBy={filterBy} setFilterBy={setFilterBy} />
+        <DocsFlatList
+          theme={theme}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+        />
+        {/* <Button title="switch theme" onPress={() => switchTheme()}></Button> */}
       </ScrollView>
       <DocsHeader scrollY={scrollY} header="Documents" />
     </View>

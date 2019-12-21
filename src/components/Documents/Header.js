@@ -24,7 +24,7 @@ export default DocsHeader = props => {
   };
   _getHeaderTitleOpacity = () => {
     return props.scrollY.interpolate({
-      inputRange: [0, 12, 70, 90],
+      inputRange: [0, 12, 60, 70],
       outputRange: [0, 0, 1, 1],
       extrapolate: "clamp",
       useNativeDriver: true
