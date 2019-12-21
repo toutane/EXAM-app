@@ -1,45 +1,35 @@
 import React, { useState } from "react";
-import { FlatList, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 
 import CardView from "./Item/Card/View";
+import ListView from "./Item/List/View";
 
 export default DocsFlatList = props => {
   const [data, setData] = useState([
     { createCard: true },
-    { title: "Chapitre 1", color: "rgb(48, 209, 88)" }
+    { title: "Note 1", color: "rgb(48, 209, 88)" }
   ]);
   return (
-    <ScrollView
-      style={{ marginBottom: 130 }}
-      contentContainerStyle={{
-        flexDirection: "row",
-        flexWrap: "wrap"
-      }}
-    >
-      {data.map((item, index) => (
-        <CardView
-          {...props}
-          key={index}
-          item={item}
-          // data={data}
-          setData={setData}
-        />
-      ))}
-    </ScrollView>
-    // <FlatList
-    //   style={{ paddingHorizontal: 30 }}
-    //   data={data}
-    //   renderItem={({ item, index }) => (
-    //     <CardView
-    //       key={index}
-    //       item={item}
-    //       {...props}
-    //       data={data}
-    //       setData={setData}
-    //     />
-    //   )}
-    //   numColumns={3}
-    //   keyExtractor={(item, index) => index.toString()}
-    // />
+    <View>
+      {props.viewMode === "Card" ? (
+        <ScrollView
+          style={{ marginBottom: 130 }}
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap"
+          }}
+        >
+          {data.map((item, index) => (
+            <CardView {...props} key={index} item={item} setData={setData} />
+          ))}
+        </ScrollView>
+      ) : (
+        <ScrollView style={{ marginBottom: 130, marginTop: 10 }}>
+          {data.map((item, index) => (
+            <ListView {...props} key={index} item={item} setData={setData} />
+          ))}
+        </ScrollView>
+      )}
+    </View>
   );
 };
