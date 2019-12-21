@@ -13,12 +13,20 @@ import {
   faFileImport,
   faFileExport
 } from "@fortawesome/free-solid-svg-icons";
+import * as Haptics from "expo-haptics";
 
 export default ModalItem = props => {
+  const options = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false
+  };
+
   return (
     <TouchableOpacity
       style={{ flexDirection: "row", paddingVertical: 7.5 }}
-      onPress={() => props.item.function()}
+      onPress={() => {
+        props.item.function(), Haptics.selectionAsync();
+      }}
     >
       <View style={{ margin: 1 }}>
         <FontAwesomeIcon

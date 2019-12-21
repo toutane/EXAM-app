@@ -21,9 +21,11 @@
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-appearance": "~0.3.1",
+    "react-native-haptic-feedback": "^1.8.2",
     "react-native-modals": "^0.19.9",
     "react-native-svg": "^9.13.6",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "expo-haptics": "~8.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
