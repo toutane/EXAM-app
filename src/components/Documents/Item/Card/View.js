@@ -1,9 +1,13 @@
-import React from "react";
-import { View, Button, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 import CreateCard from "./CreateCard";
+import BottomInputModal from "../../../Modals/BottomInputModal";
 
 export default CardView = props => {
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
   return (
     <View>
       {props.item.createCard ? (
@@ -23,10 +27,27 @@ export default CardView = props => {
               shadowColor: props.theme.fontColor
             }}
           />
-          <Button
-            title={props.item.title}
-            onPress={() => alert(`${props.item.title} pressed`)}
-          />
+          <TouchableOpacity
+            style={{ paddingVertical: 7 }}
+            onPress={() => setIsOptionsVisible(true)}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text
+                style={{
+                  fontFamily: "sf-text-regular",
+                  fontSize: 18,
+                  color: props.theme.blue
+                }}
+              >
+                {props.item.title}
+              </Text>
+              <FontAwesomeIcon
+                icon={faAngleDown}
+                color={props.theme.blue}
+                size={12}
+              />
+            </View>
+          </TouchableOpacity>
           <Text
             style={{
               top: -6,
@@ -39,6 +60,19 @@ export default CardView = props => {
           </Text>
         </View>
       )}
+      <BottomInputModal
+        {...props}
+        isVisible={isOptionsVisible}
+        setIsVisible={setIsOptionsVisible}
+        content={[
+          { title: "Input", function: e => console.log(e) },
+          { title: "Duplicate", function: () => alert("Duplicated") },
+          { title: "Move", function: () => alert("Moved") },
+          { title: "Export all", function: () => alert("Expoted") },
+          { title: "Delete", function: () => alert("Deleted") },
+          { title: "Cancel" }
+        ]}
+      />
     </View>
   );
 };
