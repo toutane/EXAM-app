@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import { View, Text, Button, ScrollView, Animated } from "react-native";
-import { screenHeight } from "../../utils/dimensions";
+import { screenHeight, screenWidth } from "../../utils/dimensions";
 
 import { ThemeContext } from "../../contexts/theme-context";
 
+import Hr from "../Hr/Hr";
 import DocsHeader from "./Header";
 import FilterBar from "./FilterBar";
 import DocsFlatList from "./FlatList";
@@ -11,7 +12,7 @@ import DocsFlatList from "./FlatList";
 export default DocsView = () => {
   const { theme, switchTheme } = useContext(ThemeContext);
   const [filterBy, setFilterBy] = useState("Date");
-  const [viewMode, setViewMode] = useState("Card");
+  const [viewMode, setViewMode] = useState("List");
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
 
   _getTitleOpacity = () => {
@@ -51,11 +52,22 @@ export default DocsView = () => {
         >
           Documents
         </Animated.Text>
-        <FilterBar filterBy={filterBy} setFilterBy={setFilterBy} />
+        <View style={{ paddingHorizontal: 15 }}>
+          <Hr padding={30} />
+        </View>
+        <FilterBar
+          theme={theme}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+        />
         <DocsFlatList
           theme={theme}
           viewMode={viewMode}
           setViewMode={setViewMode}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
         />
         {/* <Button title="switch theme" onPress={() => switchTheme()}></Button> */}
       </ScrollView>
