@@ -9,6 +9,10 @@
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^3.4.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-regular-svg-icons": "^5.12.0",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@fortawesome/react-native-fontawesome": "^0.2.0",
     "expo": "~36.0.0",
     "expo-blur": "~8.0.0",
     "expo-font": "~8.0.0",
@@ -18,7 +22,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-appearance": "~0.3.1",
     "react-native-modals": "^0.19.9",
-    "react-native-popover-view": "^2.0.5",
+    "react-native-svg": "^9.13.6",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {
