@@ -18,7 +18,7 @@ export default BottomModal = props => {
         actionsBordered
         modalStyle={{
           borderRadius: 0,
-          top: 260,
+          top: 320,
           backgroundColor: "transparent"
         }}
         modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
@@ -29,7 +29,7 @@ export default BottomModal = props => {
               backgroundColor: "white",
               paddingLeft: 15,
               borderRadius: 12,
-              height: 230,
+              height: 115,
               width: "100%",
               justifyContent: "center"
             }}

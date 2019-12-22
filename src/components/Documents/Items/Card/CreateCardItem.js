@@ -1,25 +1,35 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Button, Text } from "react-native";
+import DoubleClick from "rn-double-click";
 
 import BottomModal from "../../../Modals/BottomModal";
 
-export default CreateCard = props => {
+export default CreateCardItem = props => {
   const [isVisible, setIsVisible] = useState(false);
-  function createCard() {
-    // Share.share({
-    //   message: "React Native | A framework for building native apps using React"
+  function createCard(type) {
+    // props.setData(prevData => {
+    //   const prevNumber = parseInt(
+    //     prevData[prevData.length - 1].title.split(" ")[1],
+    //     10
+    //   );
+    //   return [
+    //     ...prevData,
+    //     ...[
+    //       {
+    //         title: `Note ${prevNumber >= 9 ? 1 : prevNumber + 1}`,
+    //         color: prevNumber % 2 == 0 ? "rgb(48, 209, 88)" : "rgb(255, 149, 0)"
+    //       }
+    //     ]
+    //   ];
     // });
     props.setData(prevData => {
-      const prevNumber = parseInt(
-        prevData[prevData.length - 1].title.split(" ")[1],
-        10
-      );
       return [
         ...prevData,
         ...[
           {
-            title: `Note ${prevNumber >= 9 ? 1 : prevNumber + 1}`,
-            color: prevNumber % 2 == 0 ? "rgb(48, 209, 88)" : "rgb(255, 149, 0)"
+            type: type,
+            title: type === "note" ? "Note" : "Book",
+            color: type === "note" ? "rgb(255, 204, 0)" : "rgb(48, 209, 88)"
           }
         ]
       ];
@@ -52,10 +62,8 @@ export default CreateCard = props => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         content={[
-          { title: "QuickNote", function: createCard },
-          { title: "Book", function: createCard },
-          { title: "Folder", function: createCard },
-          { title: "Import", function: createCard },
+          { title: "QuickNote", function: () => createCard("note") },
+          { title: "Book", function: () => createCard("book") },
           { title: "Cancel" }
         ]}
       />

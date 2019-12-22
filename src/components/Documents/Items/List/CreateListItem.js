@@ -6,11 +6,11 @@ import { screenWidth } from "../../../../utils/dimensions";
 
 import BottomModal from "../../../Modals/BottomModal";
 
-export default CreateCard = props => {
+export default CreateListItem = props => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <View>
+    <View style={{ marginTop: 10 }}>
       <TouchableOpacity
         style={{ paddingHorizontal: 15, marginTop: 10 }}
         onPress={() => setIsVisible(true)}
@@ -65,8 +65,6 @@ export default CreateCard = props => {
         content={[
           { title: "QuickNote" },
           { title: "Book" },
-          { title: "Folder" },
-          { title: "Import" },
           { title: "Cancel" }
         ]}
       />
