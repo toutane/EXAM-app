@@ -63,8 +63,8 @@ export default CreateListItem = props => {
         isVisible={isVisible}
         setIsVisible={setIsVisible}
         content={[
-          { title: "QuickNote" },
-          { title: "Book" },
+          { title: "QuickNote", function: () => alert("New item created") },
+          { title: "Book", function: () => alert("New item created") },
           { title: "Cancel" }
         ]}
       />

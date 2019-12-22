@@ -22,18 +22,19 @@ export default CreateCardItem = props => {
     //     ]
     //   ];
     // });
-    props.setData(prevData => {
-      return [
-        ...prevData,
-        ...[
-          {
-            type: type,
-            title: type === "note" ? "Note" : "Book",
-            color: type === "note" ? "rgb(255, 204, 0)" : "rgb(48, 209, 88)"
-          }
-        ]
-      ];
-    });
+    // props.setData(prevData => {
+    //   return [
+    //     ...prevData,
+    //     ...[
+    //       {
+    //         type: type,
+    //         title: type === "note" ? "Note" : "Book",
+    //         color: type === "note" ? "rgb(255, 204, 0)" : "rgb(48, 209, 88)"
+    //       }
+    //     ]
+    //   ];
+    // });
+    alert("New item created");
   }
   return (
     <TouchableOpacity
