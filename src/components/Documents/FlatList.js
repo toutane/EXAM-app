@@ -1,33 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 
-import CardView from "./Item/Card/View";
-import ListView from "./Item/List/View";
+import { NoteContext } from "../../contexts/note-context";
+import { BookContext } from "../../contexts/book-context";
+
+import CardView from "./Items/Card/CardViewMode";
+import ListView from "./Items/List/ListViewMode";
+import CreateCardItem from "./Items/Card/CreateCardItem";
+import CreateListItem from "./Items/List/CreateListItem";
 
 export default DocsFlatList = props => {
+  const { notes } = useContext(NoteContext);
+  const { books } = useContext(BookContext);
+  const [docs, setDocs] = useState([]);
   const [data, setData] = useState([
-    { createCard: true },
-    { title: "Note 1", color: "rgb(48, 209, 88)" }
+    { type: "create" },
+    { type: "note", color: "rgb(255, 204, 0)", title: "Note" },
+    { type: "book", color: "rgb(48, 209, 88)", title: "Book" }
+  ]);
+  useEffect(() => setDocs([...[{ type: "create" }], ...notes, ...books]), [
+    notes
   ]);
   return (
     <View>
       {props.viewMode === "Card" ? (
         <ScrollView
-          style={{ marginBottom: 130 }}
+          style={{ marginBottom: 200 }}
           contentContainerStyle={{
             flexDirection: "row",
             flexWrap: "wrap"
           }}
         >
-          {data.map((item, index) => (
-            <CardView {...props} key={index} item={item} setData={setData} />
-          ))}
+          {docs.map((item, index) =>
+            item.type !== "create" ? (
+              <CardView {...props} key={index} item={item} setData={setData} />
+            ) : (
+              <CreateCardItem
+                {...props}
+                key={index}
+                item={item}
+                setData={setData}
+              />
+            )
+          )}
         </ScrollView>
       ) : (
-        <ScrollView style={{ marginBottom: 130, marginTop: 10 }}>
-          {data.map((item, index) => (
-            <ListView {...props} key={index} item={item} setData={setData} />
-          ))}
+        <ScrollView style={{ marginBottom: 200, marginTop: 10 }}>
+          {docs.map((item, index) =>
+            item.type !== "create" ? (
+              <ListView {...props} key={index} item={item} setData={setData} />
+            ) : (
+              <CreateListItem
+                {...props}
+                key={index}
+                item={item}
+                setData={setData}
+              />
+            )
+          )}
         </ScrollView>
       )}
     </View>
