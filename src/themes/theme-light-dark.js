@@ -21,6 +21,6 @@ export const themeLD = [
     gray2: "rgb(174, 174, 178)",
     gray4: "rgb(99, 99, 102)",
     gray5: "rgb(44 ,44 ,46)",
-    gray6: "rgb(28, 28, 60)"
+    gray6: "rgb(28, 28, 30)"
   }
 ];

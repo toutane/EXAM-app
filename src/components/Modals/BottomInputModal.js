@@ -41,7 +41,7 @@ export default BottomInputModal = props => {
           <Animated.View
             style={{
               top: modalHeight,
-              backgroundColor: "white",
+              backgroundColor: props.theme.gray6,
               paddingLeft: 15,
               borderRadius: 12,
               height: 290,
@@ -74,7 +74,7 @@ export default BottomInputModal = props => {
           <TouchableOpacity
             style={{
               marginTop: 7,
-              backgroundColor: "white",
+              backgroundColor: props.theme.gray6,
               borderRadius: 12,
               height: 50,
               width: "100%",
@@ -87,7 +87,8 @@ export default BottomInputModal = props => {
               style={{
                 position: "absolute",
                 fontFamily: "sf-display-semibold",
-                fontSize: 19
+                fontSize: 19,
+                color: props.theme.fontColor
               }}
             >
               {props.content[props.content.length - 1].title}
