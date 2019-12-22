@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import * as Font from "expo-font";
 
-import { ThemeProvider } from "./src/contexts/theme-context";
-import Documents from "./src/views/Documents";
+import { AuthProvider } from "./src/contexts/auth-context";
+import FirebaseInitialization from "./src/firebase/firebaseInitialization";
 
 export default function App(props) {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -24,13 +24,14 @@ export default function App(props) {
   }
 
   return fontLoaded ? (
-    <ThemeProvider>
-      <Documents />
-    </ThemeProvider>
+    <AuthProvider>
+      <FirebaseInitialization />
+    </AuthProvider>
   ) : (
-    <View style={styles.container}>
-      <Text style={styles.text}>Fonts not loaded 😢</Text>
-    </View>
+    // <View style={styles.container}>
+    //   <Text style={styles.text}>Fonts not loaded 😢</Text>
+    // </View>
+    <View />
   );
 }
 
