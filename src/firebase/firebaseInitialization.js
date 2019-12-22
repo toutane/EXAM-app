@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebase/firebase";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
+import { ThemeProvider } from "../contexts/theme-context";
 import { AuthContext } from "../contexts/auth-context";
 import { UserProvider } from "../contexts/user-context";
-import { ThemeProvider } from "../contexts/theme-context";
+import { NoteProvider } from "../contexts/note-context";
+import { BookProvider } from "../contexts/book-context";
 
 import Routes from "../routes/routes";
 
@@ -24,31 +26,16 @@ export default function FirebaseInitialized(props) {
     });
   }, []);
   return firebaseInitialized !== false ? (
-    // <AppearanceProvider>
     <ThemeProvider>
       <UserProvider>
-        <Routes />
+        <NoteProvider>
+          <BookProvider>
+            <Routes />
+          </BookProvider>
+        </NoteProvider>
       </UserProvider>
     </ThemeProvider>
   ) : (
-    // </AppearanceProvider>
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-      }}
-    >
-      <Text
-        style={{
-          textAlign: "center",
-          marginHorizontal: 50,
-          fontSize: 34,
-          fontFamily: "sf-display-bold"
-        }}
-      >
-        🔥 initialization...
-      </Text>
-    </View>
+    <View />
   );
 }
