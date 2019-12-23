@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, Animated } from "react-native";
+import React from "react";
+import { View, TouchableOpacity, Text } from "react-native";
 import Modal, { SlideAnimation } from "react-native-modals";
 
 import ModalItem from "./ModalItem";
 import ModalInput from "./ModalInput";
 
 export default BottomInputModal = props => {
-  const [test, setTest] = useState("Input");
-  const [modalHeight, setModalHeight] = useState(0);
-  useEffect(
-    () =>
-      setModalHeight(modalHeight =>
-        test === props.content[0].title ? modalHeight : modalHeight - 10
-      ),
-    [test]
-  );
+  const itemContent = [
+    { title: "Input", function: e => console.log(e) },
+    {
+      title: "Duplicate",
+      function: () => {
+        props.duplicateItem(props.item), props.setIsOptionsVisible(false);
+      }
+    },
+    { title: "Move", function: () => alert("Moved") },
+    { title: "Export all", function: () => alert("Expoted") },
+    {
+      title: "Delete",
+      function: () => {
+        props.deleteItem(props.item), props.setIsOptionsVisible(false);
+      }
+    },
+    { title: "Ok" }
+  ];
+  const content = props.content === "itemContent" ? itemContent : [];
   return (
     <View>
       <Modal
@@ -38,9 +48,8 @@ export default BottomInputModal = props => {
             backgroundColor: "transparent"
           }}
         >
-          <Animated.View
+          <View
             style={{
-              top: modalHeight,
               backgroundColor: props.theme.gray6,
               paddingLeft: 15,
               borderRadius: 12,
@@ -50,27 +59,21 @@ export default BottomInputModal = props => {
             }}
             onPress={() => props.setIsVisible(false)}
           >
-            {props.content
-              .filter((e, i) => i !== props.content.length - 1)
+            {content
+              .filter((e, i) => i !== content.length - 1)
               .map((e, i) =>
                 e.title === "Input" ? (
-                  <ModalInput
-                    {...props}
-                    key={i}
-                    item={e}
-                    test={test}
-                    setTest={setTest}
-                  />
+                  <ModalInput {...props} key={i} />
                 ) : (
                   <ModalItem
                     {...props}
                     key={i}
                     item={e}
-                    last={props.content.length - 2 === i ? true : false}
+                    last={content.length - 2 === i ? true : false}
                   />
                 )
               )}
-          </Animated.View>
+          </View>
           <TouchableOpacity
             style={{
               marginTop: 7,
@@ -91,7 +94,7 @@ export default BottomInputModal = props => {
                 color: props.theme.fontColor
               }}
             >
-              {props.content[props.content.length - 1].title}
+              {content[content.length - 1].title}
             </Text>
           </TouchableOpacity>
         </View>

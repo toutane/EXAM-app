@@ -5,6 +5,28 @@ import Modal, { SlideAnimation } from "react-native-modals";
 import ModalItem from "./ModalItem";
 
 export default BottomModal = props => {
+  const createContent = [
+    {
+      title: "QuickNote",
+      function: () =>
+        props.createItem({
+          type: "note",
+          title: "Note",
+          color: "rgb(255, 204, 0)"
+        })
+    },
+    {
+      title: "Book",
+      function: () =>
+        props.createItem({
+          type: "book",
+          title: "Book",
+          color: "rgb(48, 209, 88)"
+        })
+    },
+    { title: "Cancel" }
+  ];
+  const content = props.content === "createContent" ? createContent : [];
   return (
     <View>
       <Modal
@@ -35,14 +57,14 @@ export default BottomModal = props => {
             }}
             onPress={() => props.setIsVisible(false)}
           >
-            {props.content
-              .filter((e, i) => i !== props.content.length - 1)
+            {content
+              .filter((e, i) => i !== content.length - 1)
               .map((e, i) => (
                 <ModalItem
                   {...props}
                   key={i}
                   item={e}
-                  last={props.content.length - 2 === i ? true : false}
+                  last={content.length - 2 === i ? true : false}
                 />
               ))}
           </View>
@@ -66,7 +88,7 @@ export default BottomModal = props => {
                 color: props.theme.fontColor
               }}
             >
-              {props.content[props.content.length - 1].title}
+              {content[content.length - 1].title}
             </Text>
           </TouchableOpacity>
         </View>
