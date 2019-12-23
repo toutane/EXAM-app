@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { ThemeProvider } from "../contexts/theme-context";
 import { AuthContext } from "../contexts/auth-context";
 import { UserProvider } from "../contexts/user-context";
+import { ItemProvider } from "../contexts/item-context";
 import { NoteProvider } from "../contexts/note-context";
 import { BookProvider } from "../contexts/book-context";
 
@@ -28,11 +29,13 @@ export default function FirebaseInitialized(props) {
   return firebaseInitialized !== false ? (
     <ThemeProvider>
       <UserProvider>
-        <NoteProvider>
-          <BookProvider>
-            <Routes />
-          </BookProvider>
-        </NoteProvider>
+        <ItemProvider>
+          <NoteProvider>
+            <BookProvider>
+              <Routes />
+            </BookProvider>
+          </NoteProvider>
+        </ItemProvider>
       </UserProvider>
     </ThemeProvider>
   ) : (
