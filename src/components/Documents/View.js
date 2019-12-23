@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Button, ScrollView, Animated } from "react-native";
 import { screenHeight, screenWidth } from "../../utils/dimensions";
 
@@ -11,10 +11,10 @@ import DocsFlatList from "./FlatList";
 
 export default DocsView = () => {
   const { theme, switchTheme } = useContext(ThemeContext);
-  const [filterBy, setFilterBy] = useState("Date");
+  const [filterBy, setFilterBy] = useState(0);
   const [viewMode, setViewMode] = useState("List");
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-
+  // useEffect(() => console.log(filterBy), [filterBy]);
   _getTitleOpacity = () => {
     return scrollY.interpolate({
       inputRange: [0, 35, 36, 100],
