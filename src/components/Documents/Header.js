@@ -75,13 +75,13 @@ export default DocsHeader = props => {
           width: screenWidth,
           alignItems: "center",
           justifyContent: "center",
-          position: "absolute",
           top: 20,
           flexDirection: "row"
         }}
       >
         <Animated.Text
           style={{
+            left: 24,
             fontSize: 17,
             fontFamily: "sf-text-semibold",
             color: theme.fontColor,
