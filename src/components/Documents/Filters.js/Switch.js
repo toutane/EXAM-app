@@ -6,8 +6,9 @@ export default Switch = props => {
     <View>
       <SegmentedControlIOS
         values={["Date", "Name"]}
-        selectedIndex={props.filterBy === "Date" ? 0 : 1}
+        selectedIndex={props.filterBy}
         onChange={e => {
+          // console.log(e.nativeEvent.selectedSegmentIndex);
           props.setFilterBy(e.nativeEvent.selectedSegmentIndex);
         }}
         style={{ width: 200 }}
