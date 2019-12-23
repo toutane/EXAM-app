@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 
+import { ItemContext } from "../../contexts/item-context";
 import { NoteContext } from "../../contexts/note-context";
 import { BookContext } from "../../contexts/book-context";
 
@@ -10,17 +11,40 @@ import CreateCardItem from "./Items/Card/CreateCardItem";
 import CreateListItem from "./Items/List/CreateListItem";
 
 export default DocsFlatList = props => {
+  const { create_item, duplicate_item, update_item, delete_item } = useContext(
+    ItemContext
+  );
   const { notes } = useContext(NoteContext);
   const { books } = useContext(BookContext);
   const [docs, setDocs] = useState([]);
-  const [data, setData] = useState([
-    { type: "create" },
-    { type: "note", color: "rgb(255, 204, 0)", title: "Note" },
-    { type: "book", color: "rgb(48, 209, 88)", title: "Book" }
-  ]);
   useEffect(() => setDocs([...[{ type: "create" }], ...notes, ...books]), [
-    notes
+    notes,
+    books
   ]);
+  const sortedDocs =
+    props.filterBy === 0
+      ? docs.sort(function(a, b) {
+          if (a.creation_date > b.creation_date) return -1;
+          if (a.creation_date < b.creation_date) return 1;
+          return 0;
+        })
+      : docs.sort(function(a, b) {
+          if (a.title > b.title) return -1;
+          if (a.title < b.title) return 1;
+          return 0;
+        });
+  function createItem(item) {
+    create_item(item);
+  }
+  function updateItem(item, newTitle) {
+    update_item(item, newTitle);
+  }
+  function duplicateItem(item) {
+    duplicate_item(item);
+  }
+  function deleteItem(item) {
+    delete_item(item);
+  }
   return (
     <View>
       {props.viewMode === "Card" ? (
@@ -31,30 +55,44 @@ export default DocsFlatList = props => {
             flexWrap: "wrap"
           }}
         >
-          {docs.map((item, index) =>
+          {sortedDocs.map((item, index) =>
             item.type !== "create" ? (
-              <CardView {...props} key={index} item={item} setData={setData} />
+              <CardView
+                {...props}
+                key={index}
+                item={item}
+                deleteItem={item => deleteItem(item)}
+                updateItem={(item, newTitle) => updateItem(item, newTitle)}
+                duplicateItem={item => duplicateItem(item)}
+              />
             ) : (
               <CreateCardItem
                 {...props}
                 key={index}
                 item={item}
-                setData={setData}
+                createItem={item => createItem(item)}
               />
             )
           )}
         </ScrollView>
       ) : (
         <ScrollView style={{ marginBottom: 200, marginTop: 10 }}>
-          {docs.map((item, index) =>
+          {sortedDocs.map((item, index) =>
             item.type !== "create" ? (
-              <ListView {...props} key={index} item={item} setData={setData} />
+              <ListView
+                {...props}
+                key={index}
+                item={item}
+                deleteItem={item => deleteItem(item)}
+                updateItem={(item, newTitle) => updateItem(item, newTitle)}
+                duplicateItem={item => duplicateItem(item)}
+              />
             ) : (
               <CreateListItem
                 {...props}
                 key={index}
                 item={item}
-                setData={setData}
+                createItem={item => createItem(item)}
               />
             )
           )}
