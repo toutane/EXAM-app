@@ -13,14 +13,15 @@ const NoteProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId } = useContext(UserContext);
   const [notes, setNotes] = useState([]);
-  const [currentNote, setCurrentNote] = useState({});
   const [loaded, setLoaded] = useState(false);
 
+  const [currentNote, setCurrentNote] = useState({ title: "" });
+
   useEffect(() => {
-    currentUserId !== "" ? notesListenToChanges() : null;
+    currentUserId !== "" ? notesListenToChanges() : setNotes([]);
   }, [currentUserId]);
 
-  useEffect(() => console.log("loaded state " + loaded), [loaded]);
+  // useEffect(() => console.log("loaded notes state : " + loaded), [loaded]);
 
   async function notesListenToChanges() {
     firebase.db
@@ -28,18 +29,6 @@ const NoteProvider = props => {
       .doc(currentUserId)
       .collection("notes")
       .onSnapshot(() => loadNotes());
-  }
-
-  async function currentNoteListen(noteId) {
-    firebase.db
-      .collection("users")
-      .doc(currentUserId)
-      .collection("notes")
-      .doc(noteId)
-      .onSnapshot(
-        () => loadCurrentNote(noteId),
-        console.log(`listen to ${noteId}`)
-      );
   }
 
   async function loadNotes() {
@@ -69,26 +58,14 @@ const NoteProvider = props => {
     return setCurrentNote(note.data());
   }
 
-  deleteNote = noteId => {
-    authenticated
-      ? firebase.db
-          .collection("users")
-          .doc(currentUserId)
-          .collection("notes")
-          .doc(noteId)
-          .delete()
-      : alert("You mst be authenticated to delete this note 🙅‍♂️");
-  };
-
   return (
     <Provider
       value={{
         notes,
+        currentNote,
         setNotes,
         loadNotes,
-        deleteNote,
-        currentNote,
-        currentNoteListen,
+        loadCurrentNote,
         loaded
       }}
     >
