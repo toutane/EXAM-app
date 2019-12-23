@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
-import { View, Animated } from "react-native";
+import { View, Animated, TouchableOpacity } from "react-native";
 import { BlurView } from "expo-blur";
 import { ThemeContext } from "../../contexts/theme-context";
 import { screenWidth } from "../../utils/dimensions";
+import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 export default DocsHeader = props => {
   const { theme } = useContext(ThemeContext);
@@ -72,7 +76,8 @@ export default DocsHeader = props => {
           alignItems: "center",
           justifyContent: "center",
           position: "absolute",
-          top: 20
+          top: 20,
+          flexDirection: "row"
         }}
       >
         <Animated.Text
@@ -85,6 +90,38 @@ export default DocsHeader = props => {
         >
           {props.header}
         </Animated.Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            right: screenWidth - 510,
+            alignItems: "center",
+            justifyContent: "center",
+            height: 25,
+            width: 25,
+            backgroundColor: "transparent"
+          }}
+          onPress={() => {
+            props.navigation.navigate("Account"), Haptics.selectionAsync();
+          }}
+        >
+          <FontAwesomeIcon icon={faUserCircle} size={23.5} color={theme.blue} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            right: screenWidth - 527,
+            alignItems: "center",
+            justifyContent: "center",
+            height: 25,
+            width: 25,
+            backgroundColor: "transparent"
+          }}
+          onPress={() => {
+            props.navigation.navigate("Settings"), Haptics.selectionAsync();
+          }}
+        >
+          <Feather name="settings" size={23} color={theme.blue} />
+        </TouchableOpacity>
       </View>
     </View>
   );
