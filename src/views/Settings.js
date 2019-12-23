@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { View, Text, Button } from "react-native";
 
 import { ThemeContext } from "../contexts/theme-context";
-
-export default Library = () => {
+export default Settings = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <View
@@ -21,7 +20,7 @@ export default Library = () => {
           color: theme.fontColor
         }}
       >
-        Library
+        Settings
       </Text>
     </View>
   );
