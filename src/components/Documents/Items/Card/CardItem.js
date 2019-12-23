@@ -3,26 +3,21 @@ import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-import BottomInputModal from "../../../Modals/BottomInputModal";
+const moment = require("moment");
 
-export default NoteCardItem = props => {
+import BottomInputModal from "../../../Modals/BottomInputModal";
+import BookItem from "./BookItem";
+import NoteItem from "./NoteItem";
+
+export default CardItem = props => {
   return (
     <View>
       <View style={{ alignItems: "center", marginLeft: 30 }}>
-        <TouchableOpacity
-          onPress={() => alert("card pressed")}
-          style={{
-            marginLeft: 5,
-            marginTop: 70,
-            height: 90,
-            width: 90,
-            backgroundColor: props.item.color,
-            borderRadius: 8,
-            shadowOpacity: 0.1,
-            shadowRadius: "4px",
-            shadowColor: props.theme.fontColor
-          }}
-        />
+        {props.item.type === "note" ? (
+          <NoteItem {...props} />
+        ) : (
+          <BookItem {...props} />
+        )}
         <TouchableOpacity
           style={{ paddingVertical: 7 }}
           onPress={() => props.setIsOptionsVisible(true)}
@@ -35,7 +30,9 @@ export default NoteCardItem = props => {
                 color: props.theme.blue
               }}
             >
-              {props.item.title}
+              {props.item.title.length >= 6
+                ? props.item.title.slice(0, 6) + "..."
+                : props.item.title}
             </Text>
             <FontAwesomeIcon
               icon={faAngleDown}
@@ -52,21 +49,16 @@ export default NoteCardItem = props => {
             color: props.theme.gray
           }}
         >
-          aujourd'hui
+          {moment(props.item.creation_date)
+            .startOf("min")
+            .fromNow()}
         </Text>
       </View>
       <BottomInputModal
         {...props}
         isVisible={props.isOptionsVisible}
         setIsVisible={props.setIsOptionsVisible}
-        content={[
-          { title: "Input", function: e => console.log(e) },
-          { title: "Duplicate", function: () => alert("Duplicated") },
-          { title: "Move", function: () => alert("Moved") },
-          { title: "Export all", function: () => alert("Expoted") },
-          { title: "Delete", function: () => alert("Deleted") },
-          { title: "Cancel" }
-        ]}
+        content="itemContent"
       />
     </View>
   );

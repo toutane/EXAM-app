@@ -4,9 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { screenWidth } from "../../../../utils/dimensions";
 
-import BottomInputModal from "../../../Modals/BottomInputModal";
+const moment = require("moment");
 
-export default BookListItem = props => {
+import BottomInputModal from "../../../Modals/BottomInputModal";
+import BookItem from "./BookItem";
+import NoteItem from "./NoteItem";
+
+export default ListItem = props => {
   return (
     <View style={{ marginTop: 10 }}>
       <TouchableOpacity style={{ paddingHorizontal: 15 }}>
@@ -19,18 +23,11 @@ export default BookListItem = props => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => alert("card pressed")}
-              style={{
-                height: 65,
-                width: 50,
-                backgroundColor: props.item.color,
-                borderRadius: 8,
-                shadowOpacity: 0.1,
-                shadowRadius: "4px",
-                shadowColor: props.theme.fontColor
-              }}
-            />
+            {props.item.type === "note" ? (
+              <NoteItem {...props} />
+            ) : (
+              <BookItem {...props} />
+            )}
             <View
               style={{
                 flexDirection: "column",
@@ -56,7 +53,9 @@ export default BookListItem = props => {
                   color: props.theme.gray
                 }}
               >
-                aujourd'hui
+                {moment(props.item.creation_date)
+                  .startOf("min")
+                  .fromNow()}{" "}
               </Text>
             </View>
           </View>
@@ -84,14 +83,7 @@ export default BookListItem = props => {
         {...props}
         isVisible={props.isOptionsVisible}
         setIsVisible={props.setIsOptionsVisible}
-        content={[
-          { title: "Input", function: e => console.log(e) },
-          { title: "Duplicate", function: () => alert("Duplicated") },
-          { title: "Move", function: () => alert("Moved") },
-          { title: "Export all", function: () => alert("Expoted") },
-          { title: "Delete", function: () => alert("Deleted") },
-          { title: "Cancel" }
-        ]}
+        content="itemContent"
       />
     </View>
   );
