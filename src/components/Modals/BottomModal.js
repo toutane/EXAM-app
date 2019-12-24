@@ -7,20 +7,22 @@ import ModalItem from "./ModalItem";
 export default BottomModal = props => {
   const createContent = [
     {
-      title: "QuickNote",
+      title: "Quick exam",
+      icon: "file",
       function: () =>
         props.createItem({
-          type: "note",
-          title: "Note",
+          type: "exam",
+          title: "Quick exam",
           color: "rgb(255, 204, 0)"
         })
     },
     {
-      title: "Book",
+      title: "Notebook",
+      icon: "book",
       function: () =>
         props.createItem({
           type: "book",
-          title: "Book",
+          title: "Notebook",
           color: "rgb(48, 209, 88)"
         })
     },

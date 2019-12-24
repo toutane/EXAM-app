@@ -57,14 +57,17 @@ const ItemProvider = props => {
           })
       );
   }
-  update_item = (item, new_title) => {
+  update_item = (item, newTitle, isFavorite) => {
     firebase.db
       .collection("users")
       .doc(currentUserId)
       .collection(item.type + "s")
       .doc(item.id)
       .update({
-        title: new_title
+        title: newTitle,
+        isFavorite: isFavorite,
+        creation_date:
+          isFavorite === null ? moment().format() : item.creation_date
       });
   };
   delete_item = item => {

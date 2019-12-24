@@ -13,6 +13,7 @@ import {
   faFileImport,
   faFileExport
 } from "@fortawesome/free-solid-svg-icons";
+import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 
 export default ModalItem = props => {
@@ -28,28 +29,26 @@ export default ModalItem = props => {
         props.item.function(), Haptics.selectionAsync();
       }}
     >
-      <View style={{ margin: 1 }}>
-        <FontAwesomeIcon
-          icon={
-            props.item.title === "QuickNote"
-              ? faStickyNote
-              : props.item.title === "Book"
-              ? faBook
-              : props.item.title === "Folder"
-              ? faFolder
-              : props.item.title === "Duplicate"
-              ? faClone
-              : props.item.title === "Move"
-              ? faBoxOpen
-              : props.item.title === "Export all"
-              ? faFileExport
-              : props.item.title === "Delete"
-              ? faTrashAlt
-              : faFileImport
-          }
-          color={props.item.title === "Delete" ? "red" : props.theme.fontColor}
-          size={20}
-        />
+      <View
+        style={
+          props.item.icon !== "file" ? { marginTop: -1 } : { marginTop: 2 }
+        }
+      >
+        {props.item.icon !== "file" ? (
+          <Feather
+            name={props.item.icon}
+            color={
+              props.item.title === "Delete" ? "red" : props.theme.fontColor
+            }
+            size={23}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faStickyNote}
+            color={props.theme.fontColor}
+            size={20}
+          />
+        )}
       </View>
       <View style={{ flexDirection: "column", marginLeft: 10 }}>
         <Text

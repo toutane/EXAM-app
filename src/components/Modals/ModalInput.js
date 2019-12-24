@@ -5,7 +5,7 @@ export default ModalInput = props => {
   const [title, setTitle] = useState(props.item.title);
   const [newTitle, setNewTitle] = useState(props.item.title);
   useEffect(() => {
-    newTitle !== title && props.updateItem(props.item, newTitle);
+    newTitle !== title && props.updateItem(props.item, newTitle, null);
   }, [props.isVisible]);
   return (
     <View>

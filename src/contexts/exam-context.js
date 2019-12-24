@@ -4,12 +4,12 @@ import firebase from "../firebase/firebase";
 import { AuthContext } from "./auth-context";
 import { UserContext } from "./user-context";
 
-const NoteContext = React.createContext();
-const { Provider } = NoteContext;
+const ExamContext = React.createContext();
+const { Provider } = ExamContext;
 
 const moment = require("moment");
 
-const NoteProvider = props => {
+const ExamProvider = props => {
   const { authenticated } = useContext(AuthContext);
   const { currentUserId } = useContext(UserContext);
   const [notes, setNotes] = useState([]);
@@ -27,7 +27,7 @@ const NoteProvider = props => {
     firebase.db
       .collection("users")
       .doc(currentUserId)
-      .collection("notes")
+      .collection("exams")
       .onSnapshot(() => loadNotes());
   }
 
@@ -35,7 +35,7 @@ const NoteProvider = props => {
     const notes = await firebase.db
       .collection("users")
       .doc(currentUserId)
-      .collection("notes")
+      .collection("exams")
       .get();
     return (
       setNotes(
@@ -52,7 +52,7 @@ const NoteProvider = props => {
     const note = await firebase.db
       .collection("users")
       .doc(currentUserId)
-      .collection("notes")
+      .collection("exams")
       .doc(noteId)
       .get();
     return setCurrentNote(note.data());
@@ -74,4 +74,4 @@ const NoteProvider = props => {
   );
 };
 
-export { NoteProvider, NoteContext };
+export { ExamProvider, ExamContext };

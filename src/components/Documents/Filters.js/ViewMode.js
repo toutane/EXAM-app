@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { screenWidth } from "../../../utils/dimensions";
+import * as Haptics from "expo-haptics";
 
 export default ViewMode = props => {
   return (
@@ -20,9 +21,10 @@ export default ViewMode = props => {
             ? props.theme.backgroundColor
             : props.theme.blue
       }}
-      onPress={() =>
-        props.setViewMode(prevData => (prevData === "List" ? "Card" : "List"))
-      }
+      onPress={() => {
+        props.setViewMode(prevData => (prevData === "List" ? "Card" : "List")),
+          Haptics.selectionAsync();
+      }}
     >
       <FontAwesomeIcon
         size={17}

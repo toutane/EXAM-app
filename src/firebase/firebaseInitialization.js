@@ -6,7 +6,7 @@ import { ThemeProvider } from "../contexts/theme-context";
 import { AuthContext } from "../contexts/auth-context";
 import { UserProvider } from "../contexts/user-context";
 import { ItemProvider } from "../contexts/item-context";
-import { NoteProvider } from "../contexts/note-context";
+import { ExamProvider } from "../contexts/exam-context";
 import { BookProvider } from "../contexts/book-context";
 
 import Routes from "../routes/routes";
@@ -30,11 +30,11 @@ export default function FirebaseInitialized(props) {
     <ThemeProvider>
       <UserProvider>
         <ItemProvider>
-          <NoteProvider>
+          <ExamProvider>
             <BookProvider>
               <Routes />
             </BookProvider>
-          </NoteProvider>
+          </ExamProvider>
         </ItemProvider>
       </UserProvider>
     </ThemeProvider>

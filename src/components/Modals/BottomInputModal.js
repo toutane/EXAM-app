@@ -10,14 +10,20 @@ export default BottomInputModal = props => {
     { title: "Input", function: e => console.log(e) },
     {
       title: "Duplicate",
+      icon: "copy",
       function: () => {
         props.duplicateItem(props.item), props.setIsOptionsVisible(false);
       }
     },
-    { title: "Move", function: () => alert("Moved") },
-    { title: "Export all", function: () => alert("Expoted") },
+    { title: "Move", icon: "shopping-cart", function: () => alert("Moved") },
+    {
+      title: "Export all",
+      icon: "external-link",
+      function: () => alert("Expoted")
+    },
     {
       title: "Delete",
+      icon: "trash-2",
       function: () => {
         props.deleteItem(props.item), props.setIsOptionsVisible(false);
       }

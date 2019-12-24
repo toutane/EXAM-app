@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { screenWidth } from "../../../../utils/dimensions";
-
+import { Feather } from "@expo/vector-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 const moment = require("moment");
 
 import BottomInputModal from "../../../Modals/BottomInputModal";
@@ -11,9 +11,20 @@ import BookItem from "./BookItem";
 import NoteItem from "./NoteItem";
 
 export default ListItem = props => {
+  const [isFavorite, setIsFavorite] = useState(props.item.isFavorite);
+  useEffect(() => setIsFavorite(props.item.isFavorite), [
+    props.item.isFavorite
+  ]);
   return (
     <View style={{ marginTop: 10 }}>
-      <TouchableOpacity style={{ paddingHorizontal: 15 }}>
+      <TouchableOpacity
+        style={{ paddingHorizontal: 15 }}
+        onPress={() =>
+          props.item.type === "exam"
+            ? props.navigation.navigate("Exam", { currentItem: props.item })
+            : null
+        }
+      >
         <View
           style={{
             paddaingHorizontal: 5,
@@ -23,7 +34,7 @@ export default ListItem = props => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            {props.item.type === "note" ? (
+            {props.item.type === "exam" ? (
               <NoteItem {...props} />
             ) : (
               <BookItem {...props} />
@@ -59,16 +70,29 @@ export default ListItem = props => {
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => props.setIsOptionsVisible(true)}
-            style={{ marginRight: 10 }}
-          >
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              color={props.theme.blue}
-              size={20}
-            />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", marginRight: 10 }}>
+            <TouchableOpacity onPress={() => props.setIsOptionsVisible(true)}>
+              <Feather name="chevron-down" color={props.theme.blue} size={25} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                props.updateItem(props.item, props.item.title, !isFavorite)
+              }
+            >
+              {/* <FontAwesomeIcon
+                icon={faBookmark}
+                color={isFavorite ? "red" : props.theme.blue}
+                size={19}
+                style={{ marginLeft: 5 }}
+              /> */}
+              <Feather
+                name="bookmark"
+                color={isFavorite ? "red" : props.theme.blue}
+                size={20}
+                style={{ marginLeft: 5 }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{

@@ -9,7 +9,7 @@ import DocsHeader from "./Header";
 import FilterBar from "./FilterBar";
 import DocsFlatList from "./FlatList";
 
-export default DocsView = () => {
+export default DocsView = props => {
   const { theme, switchTheme } = useContext(ThemeContext);
   const [filterBy, setFilterBy] = useState(0);
   const [viewMode, setViewMode] = useState("List");
@@ -63,6 +63,7 @@ export default DocsView = () => {
           setViewMode={setViewMode}
         />
         <DocsFlatList
+          {...props}
           theme={theme}
           viewMode={viewMode}
           setViewMode={setViewMode}
@@ -71,7 +72,7 @@ export default DocsView = () => {
         />
         {/* <Button title="switch theme" onPress={() => switchTheme()}></Button> */}
       </ScrollView>
-      <DocsHeader scrollY={scrollY} header="Documents" />
+      <DocsHeader {...props} scrollY={scrollY} header="Documents" />
     </View>
   );
 };

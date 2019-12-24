@@ -7,6 +7,9 @@ import { Ionicons } from "@expo/vector-icons";
 import BottomTabBar from "../components/Tabs/bottomTabBar";
 
 import DocumentsStack from "./DocumentsNavigator";
+import ExamNavigator from "./ExamNavigator";
+import SettingsNavigator from "./SettingsNavigator";
+import AccountNavigator from "./AccountNavigator";
 
 import Library from "../views/Library";
 
@@ -53,7 +56,10 @@ const TabBarNavigator = createBottomTabNavigator(
 
 const AppNavigator = createStackNavigator(
   {
-    TabBarNavigator: TabBarNavigator
+    TabBarNavigator: TabBarNavigator,
+    SettingsNavigator: SettingsNavigator,
+    AccountNavigator: AccountNavigator,
+    ExamNavigator: ExamNavigator
   },
   {
     headerMode: "none",

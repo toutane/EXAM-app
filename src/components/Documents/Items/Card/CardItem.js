@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { Feather } from "@expo/vector-icons";
 
 const moment = require("moment");
 
@@ -13,7 +12,7 @@ export default CardItem = props => {
   return (
     <View>
       <View style={{ alignItems: "center", marginLeft: 30 }}>
-        {props.item.type === "note" ? (
+        {props.item.type === "exam" ? (
           <NoteItem {...props} />
         ) : (
           <BookItem {...props} />
@@ -34,11 +33,7 @@ export default CardItem = props => {
                 ? props.item.title.slice(0, 6) + "..."
                 : props.item.title}
             </Text>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              color={props.theme.blue}
-              size={12}
-            />
+            <Feather name="chevron-down" color={props.theme.blue} size={14} />
           </View>
         </TouchableOpacity>
         <Text

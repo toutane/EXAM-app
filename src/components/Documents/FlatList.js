@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 
 import { ItemContext } from "../../contexts/item-context";
-import { NoteContext } from "../../contexts/note-context";
+import { ExamContext } from "../../contexts/exam-context";
 import { BookContext } from "../../contexts/book-context";
 
 import CardView from "./Items/Card/CardViewMode";
@@ -14,7 +14,7 @@ export default DocsFlatList = props => {
   const { create_item, duplicate_item, update_item, delete_item } = useContext(
     ItemContext
   );
-  const { notes } = useContext(NoteContext);
+  const { notes } = useContext(ExamContext);
   const { books } = useContext(BookContext);
   const [docs, setDocs] = useState([]);
   useEffect(() => setDocs([...[{ type: "create" }], ...notes, ...books]), [
@@ -29,15 +29,15 @@ export default DocsFlatList = props => {
           return 0;
         })
       : docs.sort(function(a, b) {
-          if (a.title > b.title) return -1;
-          if (a.title < b.title) return 1;
+          if (a.title < b.title) return -1;
+          if (a.title > b.title) return 1;
           return 0;
         });
   function createItem(item) {
     create_item(item);
   }
-  function updateItem(item, newTitle) {
-    update_item(item, newTitle);
+  function updateItem(item, newTitle, isFavorite) {
+    update_item(item, newTitle, isFavorite);
   }
   function duplicateItem(item) {
     duplicate_item(item);
@@ -62,7 +62,9 @@ export default DocsFlatList = props => {
                 key={index}
                 item={item}
                 deleteItem={item => deleteItem(item)}
-                updateItem={(item, newTitle) => updateItem(item, newTitle)}
+                updateItem={(item, newTitle, isFavorite) =>
+                  updateItem(item, newTitle, isFavorite)
+                }
                 duplicateItem={item => duplicateItem(item)}
               />
             ) : (
@@ -84,7 +86,9 @@ export default DocsFlatList = props => {
                 key={index}
                 item={item}
                 deleteItem={item => deleteItem(item)}
-                updateItem={(item, newTitle) => updateItem(item, newTitle)}
+                updateItem={(item, newTitle, isFavorite) =>
+                  updateItem(item, newTitle, isFavorite)
+                }
                 duplicateItem={item => duplicateItem(item)}
               />
             ) : (
