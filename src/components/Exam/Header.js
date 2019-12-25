@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Animated } from "react-native";
+import { View, Animated, TouchableOpacity } from "react-native";
 import { Button, Icon, Text } from "native-base";
 import { BlurView } from "expo-blur";
 import { ThemeContext } from "../../contexts/theme-context";
 import { screenWidth } from "../../utils/dimensions";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+
+import InfoModal from "../Modals/InfoModal";
 
 export default Header = props => {
   const { theme } = useContext(ThemeContext);
@@ -40,10 +43,10 @@ export default Header = props => {
       useNativeDriver: true
     });
   };
-  const headerOpacity = this._getHeaderOpacity();
-  const headerBlackOpacity = this._getHeaderBlackOpacity();
-  const titleOpacity = this._getTitleOpacity();
-  const headerTitleOpacity = this._getHeaderTitleOpacity();
+  const headerOpacity = _getHeaderOpacity();
+  const headerBlackOpacity = _getHeaderBlackOpacity();
+  const titleOpacity = _getTitleOpacity();
+  const headerTitleOpacity = _getHeaderTitleOpacity();
   return (
     <View style={{ zIndex: 100, position: "absolute" }}>
       <Animated.View
@@ -99,12 +102,14 @@ export default Header = props => {
           alignItems: "center",
           justifyContent: "center",
           position: "absolute",
-          top: 15
+          top: 15,
+          flexDirection: "row"
         }}
       >
         <Animated.Text
           style={{
             fontSize: 17,
+            // left: 15,
             fontFamily: "sf-text-semibold",
             color: theme.fontColor,
             opacity: headerTitleOpacity
@@ -112,6 +117,23 @@ export default Header = props => {
         >
           {props.header}
         </Animated.Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            position: "absolute",
+            right: 15,
+            alignItems: "center",
+            justifyContent: "center",
+            height: 25,
+            width: 25,
+            backgroundColor: "transparent"
+          }}
+          onPress={() => {
+            props.setIsOptionsVisible(true), Haptics.selectionAsync();
+          }}
+        >
+          <Feather name="more-horizontal" size={23} color={theme.blue} />
+        </TouchableOpacity>
       </View>
       {props.createBtn && (
         <View style={{ zIndex: 999, position: "absolute", top: 43 }}>
@@ -129,6 +151,12 @@ export default Header = props => {
           </Button>
         </View>
       )}
+      <InfoModal
+        {...props}
+        isVisible={props.isOptionsVisible}
+        setIsVisible={props.setIsOptionsVisible}
+        content="itemContent"
+      />
     </View>
   );
 };
