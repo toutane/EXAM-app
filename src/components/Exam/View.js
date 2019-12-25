@@ -8,7 +8,9 @@ import ExamList from "./List";
 
 export default ExamView = props => {
   const { theme } = useContext(ThemeContext);
+  const [item, setItem] = useState(props.navigation.getParam("currentItem"));
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({
@@ -19,7 +21,7 @@ export default ExamView = props => {
     });
   };
 
-  const titleOpacity = this._getTitleOpacity();
+  const titleOpacity = _getTitleOpacity();
 
   return (
     <View
@@ -54,17 +56,21 @@ export default ExamView = props => {
               color: theme.fontColor
             }}
           >
-            {props.navigation.getParam("currentItem").title}
+            {item.title}
           </Animated.Text>
         </View>
         <ExamList theme={theme} />
       </ScrollView>
       <Header
         {...props}
+        theme={theme}
+        item={item}
         backHeader="Documents"
         backBtn={true}
-        header={props.navigation.getParam("currentItem").title}
+        header={item.title}
         scrollY={scrollY}
+        isOptionsVisible={isOptionsVisible}
+        setIsOptionsVisible={setIsOptionsVisible}
       />
     </View>
   );
