@@ -93,6 +93,7 @@ export default InfoModal = props => {
             <View
               style={{
                 flexDirection: "row",
+                marginBottom: 20,
                 alignItems: "center"
               }}
             >
@@ -109,6 +110,30 @@ export default InfoModal = props => {
                 {moment(props.item.creation_date)
                   .startOf("min")
                   .fromNow()}{" "}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
+              <Feather
+                name="file-text"
+                color={props.theme.fontColor}
+                size={20}
+              />
+              <Text
+                style={{
+                  marginLeft: 15,
+                  fontFamily: "sf-text-regular",
+                  fontSize: 19,
+                  color: props.theme.fontColor
+                }}
+              >
+                {`Question${props.item.questions.length > 1 && "s"} : ${
+                  props.item.questions.length
+                }`}
               </Text>
             </View>
           </View>
