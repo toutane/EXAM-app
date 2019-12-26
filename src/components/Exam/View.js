@@ -1,16 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Animated, ScrollView } from "react-native";
-import { ThemeContext } from "../../contexts/theme-context";
 import { screenHeight } from "../../utils/dimensions";
+
+import { ThemeContext } from "../../contexts/theme-context";
+import { ItemContext } from "../../contexts/item-context";
 
 import Header from "./Header";
 import ExamList from "./List";
 
 export default ExamView = props => {
+  const { currentItem, listen_item, update_item, delete_item } = useContext(
+    ItemContext
+  );
   const { theme } = useContext(ThemeContext);
-  const [item, setItem] = useState(props.navigation.getParam("currentItem"));
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+
+  useEffect(() => listen_item(props.navigation.getParam("currentItem")), []);
 
   _getTitleOpacity = () => {
     return scrollY.interpolate({
@@ -22,56 +28,63 @@ export default ExamView = props => {
   };
 
   const titleOpacity = _getTitleOpacity();
-
+  function deleteItem(item) {
+    delete_item(item);
+  }
   return (
     <View
       style={{
         backgroundColor: theme.backgroundColor
       }}
     >
-      <ScrollView
-        style={{ height: screenHeight, zIndex: 1 }}
-        onScroll={Animated.event([
-          { nativeEvent: { contentOffset: { y: scrollY } } }
-        ])}
-        scrollEventThrottle={16}
-        snapToAlignment={"start"}
-        snapToInterval={61}
-        showsVerticalScrollIndicator={false}
-      >
-        <View
-          style={{
-            marginHorizontal: 32,
-            marginTop: 100,
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row"
-          }}
+      <View>
+        <ScrollView
+          style={{ height: screenHeight, zIndex: 1 }}
+          onScroll={Animated.event([
+            { nativeEvent: { contentOffset: { y: scrollY } } }
+          ])}
+          scrollEventThrottle={16}
+          snapToAlignment={"start"}
+          snapToInterval={61}
+          showsVerticalScrollIndicator={false}
         >
-          <Animated.Text
+          <View
             style={{
-              opacity: titleOpacity,
-              fontSize: 34,
-              fontFamily: "sf-display-bold",
-              color: theme.fontColor
+              marginHorizontal: 32,
+              marginTop: 100,
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "row"
             }}
           >
-            {item.title}
-          </Animated.Text>
-        </View>
-        <ExamList theme={theme} />
-      </ScrollView>
-      <Header
-        {...props}
-        theme={theme}
-        item={item}
-        backHeader="Documents"
-        backBtn={true}
-        header={item.title}
-        scrollY={scrollY}
-        isOptionsVisible={isOptionsVisible}
-        setIsOptionsVisible={setIsOptionsVisible}
-      />
+            <Animated.Text
+              style={{
+                opacity: titleOpacity,
+                fontSize: 34,
+                fontFamily: "sf-display-bold",
+                color: theme.fontColor
+              }}
+            >
+              {currentItem.title}
+            </Animated.Text>
+          </View>
+          <ExamList theme={theme} />
+        </ScrollView>
+        <Header
+          {...props}
+          theme={theme}
+          item={currentItem}
+          update_item={(item, newTitle, isFavorite) =>
+            update_item(item, newTitle, isFavorite)
+          }
+          deleteItem={item => deleteItem(item)}
+          backHeader="Documents"
+          backBtn={true}
+          scrollY={scrollY}
+          isOptionsVisible={isOptionsVisible}
+          setIsOptionsVisible={setIsOptionsVisible}
+        />
+      </View>
     </View>
   );
 };

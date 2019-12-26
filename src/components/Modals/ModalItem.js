@@ -26,7 +26,9 @@ export default ModalItem = props => {
     <TouchableOpacity
       style={{ flexDirection: "row", paddingVertical: 7.5 }}
       onPress={() => {
-        props.item.function(), Haptics.selectionAsync();
+        props.item.title === "Delete" && props.navigation.navigate("Documents"),
+          props.item.function(),
+          Haptics.selectionAsync();
       }}
     >
       <View

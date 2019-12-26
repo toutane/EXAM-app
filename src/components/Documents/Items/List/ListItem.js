@@ -76,7 +76,7 @@ export default ListItem = props => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                props.updateItem(props.item, props.item.title, !isFavorite)
+                props.update_item(props.item, props.item.title, !isFavorite)
               }
             >
               {/* <FontAwesomeIcon
