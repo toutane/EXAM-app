@@ -1,36 +1,15 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import Modal, { SlideAnimation } from "react-native-modals";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faStickyNote } from "@fortawesome/free-regular-svg-icons";
+import { Feather } from "@expo/vector-icons";
 
-import ModalItem from "./ModalItem";
 import ModalInput from "./ModalInput";
 
+const moment = require("moment");
+
 export default InfoModal = props => {
-  const itemContent = [
-    { title: "Input", function: e => console.log(e) },
-    {
-      title: "Duplicate",
-      icon: "copy",
-      function: () => {
-        props.duplicateItem(props.item), props.setIsOptionsVisible(false);
-      }
-    },
-    { title: "Move", icon: "shopping-cart", function: () => alert("Moved") },
-    {
-      title: "Export all",
-      icon: "external-link",
-      function: () => alert("Expoted")
-    },
-    {
-      title: "Delete",
-      icon: "trash-2",
-      function: () => {
-        props.deleteItem(props.item), props.setIsOptionsVisible(false);
-      }
-    },
-    { title: "Ok" }
-  ];
-  const content = props.content === "itemContent" ? itemContent : [];
   return (
     <View>
       <Modal
@@ -60,25 +39,78 @@ export default InfoModal = props => {
               paddingLeft: 15,
               borderRadius: 12,
               height: 290,
-              width: "100%",
-              justifyContent: "center"
+              width: "100%"
             }}
             onPress={() => props.setIsVisible(false)}
           >
-            {content
-              .filter((e, i) => i !== content.length - 1)
-              .map((e, i) =>
-                e.title === "Input" ? (
-                  <ModalInput {...props} key={i} />
-                ) : (
-                  <ModalItem
-                    {...props}
-                    key={i}
-                    item={e}
-                    last={content.length - 2 === i ? true : false}
-                  />
-                )
-              )}
+            <Text
+              style={{
+                marginTop: 15,
+                marginBottom: 10,
+                fontFamily: "sf-text-regular",
+                fontSize: 12,
+                color: props.theme.gray
+              }}
+            >
+              TITLE
+            </Text>
+            <ModalInput {...props} />
+            <Text
+              style={{
+                marginTop: 5,
+                marginBottom: 15,
+                fontFamily: "sf-text-regular",
+                fontSize: 12,
+                color: props.theme.gray
+              }}
+            >
+              DOCUMENT INFORMATIONS
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                marginBottom: 20,
+                alignItems: "center"
+              }}
+            >
+              {/* <FontAwesomeIcon
+                icon={faStickyNote}
+                color={props.theme.fontColor}
+                size={20}
+              /> */}
+              <Feather name="file" color={props.theme.fontColor} size={20} />
+              <Text
+                style={{
+                  marginLeft: 15,
+                  fontFamily: "sf-text-regular",
+                  fontSize: 19,
+                  color: props.theme.fontColor
+                }}
+              >
+                Quick exam
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
+              <Feather name="clock" color={props.theme.fontColor} size={20} />
+              <Text
+                style={{
+                  marginLeft: 15,
+                  fontFamily: "sf-text-regular",
+                  fontSize: 19,
+                  color: props.theme.fontColor
+                }}
+              >
+                Last update :{" "}
+                {moment(props.item.creation_date)
+                  .startOf("min")
+                  .fromNow()}{" "}
+              </Text>
+            </View>
           </View>
           <TouchableOpacity
             style={{
@@ -100,7 +132,7 @@ export default InfoModal = props => {
                 color: props.theme.fontColor
               }}
             >
-              {content[content.length - 1].title}
+              OK
             </Text>
           </TouchableOpacity>
         </View>
