@@ -109,19 +109,20 @@ export default Header = props => {
         <Animated.Text
           style={{
             fontSize: 17,
-            // left: 15,
             fontFamily: "sf-text-semibold",
             color: theme.fontColor,
             opacity: headerTitleOpacity
           }}
         >
-          {props.header}
+          {props.item.title.length >= 15
+            ? props.item.title.slice(0, 15) + "..."
+            : props.item.title}
         </Animated.Text>
         <TouchableOpacity
           activeOpacity={0.8}
           style={{
             position: "absolute",
-            right: 15,
+            right: 20,
             alignItems: "center",
             justifyContent: "center",
             height: 25,
@@ -135,22 +136,6 @@ export default Header = props => {
           <Feather name="more-horizontal" size={23} color={theme.blue} />
         </TouchableOpacity>
       </View>
-      {props.createBtn && (
-        <View style={{ zIndex: 999, position: "absolute", top: 43 }}>
-          <Button
-            transparent
-            onPress={() => props.navigation.navigate(props.backHeader)}
-          >
-            <Ionicons
-              style={{ left: screenWidth - 50 }}
-              name="ios-add-circle-outline"
-              size={35}
-              color={theme.blue}
-              onPress={() => props.createFct()}
-            />
-          </Button>
-        </View>
-      )}
       <InfoModal
         {...props}
         isVisible={props.isOptionsVisible}
