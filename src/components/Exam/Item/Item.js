@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput } from "react-native";
 
 export default ItemView = props => {
+  const [newQ, setNewQ] = useState("");
+  useEffect(() => setNewQ(props.item.question), [props.item.question]);
   return (
     <TextInput
       style={{
@@ -14,12 +16,15 @@ export default ItemView = props => {
         paddingHorizontal: 10,
         color: props.theme.fontColor
       }}
-      onChangeText={e =>
-        props.setItems(
-          props.items.filter(item => item.title !== props.item.title)
-        )
+      onChangeText={e => setNewQ(e)}
+      onSubmitEditing={() =>
+        props.update_question(props.exam, props.item.question, {
+          question: newQ,
+          answer: props.item.answer,
+          status: props.item.status
+        })
       }
-      value={props.item.description}
+      value={newQ}
       autoCapitalize="none"
       autoFocus={false}
       returnKeyType="go"
