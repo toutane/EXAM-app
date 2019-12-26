@@ -28,7 +28,7 @@ export default BottomInputModal = props => {
         props.deleteItem(props.item), props.setIsOptionsVisible(false);
       }
     },
-    { title: "Ok" }
+    { title: "OK" }
   ];
   const content = props.content === "itemContent" ? itemContent : [];
   return (
