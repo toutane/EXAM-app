@@ -36,9 +36,6 @@ export default DocsFlatList = props => {
   function createItem(item) {
     create_item(item);
   }
-  function updateItem(item, newTitle, isFavorite) {
-    update_item(item, newTitle, isFavorite);
-  }
   function duplicateItem(item) {
     duplicate_item(item);
   }
@@ -62,8 +59,8 @@ export default DocsFlatList = props => {
                 key={index}
                 item={item}
                 deleteItem={item => deleteItem(item)}
-                updateItem={(item, newTitle, isFavorite) =>
-                  updateItem(item, newTitle, isFavorite)
+                update_item={(item, newTitle, isFavorite) =>
+                  update_item(item, newTitle, isFavorite)
                 }
                 duplicateItem={item => duplicateItem(item)}
               />
@@ -86,8 +83,8 @@ export default DocsFlatList = props => {
                 key={index}
                 item={item}
                 deleteItem={item => deleteItem(item)}
-                updateItem={(item, newTitle, isFavorite) =>
-                  updateItem(item, newTitle, isFavorite)
+                update_item={(item, newTitle, isFavorite) =>
+                  update_item(item, newTitle, isFavorite)
                 }
                 duplicateItem={item => duplicateItem(item)}
               />
