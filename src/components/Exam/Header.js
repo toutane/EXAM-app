@@ -140,7 +140,6 @@ export default Header = props => {
         {...props}
         isVisible={props.isOptionsVisible}
         setIsVisible={props.setIsOptionsVisible}
-        content="itemContent"
       />
     </View>
   );
