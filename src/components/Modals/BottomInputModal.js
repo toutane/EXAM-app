@@ -12,7 +12,7 @@ export default BottomInputModal = props => {
       title: "Duplicate",
       icon: "copy",
       function: () => {
-        props.duplicateItem(props.item), props.setIsOptionsVisible(false);
+        props.duplicate_item(props.item), props.setIsVisible(false);
       }
     },
     { title: "Move", icon: "shopping-cart", function: () => alert("Moved") },
@@ -25,7 +25,7 @@ export default BottomInputModal = props => {
       title: "Delete",
       icon: "trash-2",
       function: () => {
-        props.deleteItem(props.item), props.setIsOptionsVisible(false);
+        props.delete_item(props.item), props.setIsVisible(false);
       }
     },
     { title: "OK" }

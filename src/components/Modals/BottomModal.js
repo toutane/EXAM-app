@@ -10,7 +10,7 @@ export default BottomModal = props => {
       title: "Quick exam",
       icon: "file",
       function: () =>
-        props.createItem({
+        props.create_item({
           type: "exam",
           title: "Quick exam",
           color: "rgb(255, 204, 0)"
@@ -20,7 +20,7 @@ export default BottomModal = props => {
       title: "Notebook",
       icon: "book",
       function: () =>
-        props.createItem({
+        props.create_item({
           type: "book",
           title: "Notebook",
           color: "rgb(48, 209, 88)"

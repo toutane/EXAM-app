@@ -131,7 +131,7 @@ export default InfoModal = props => {
                   color: props.theme.fontColor
                 }}
               >
-                {`Question${props.item.questions.length > 1 && "s"} : ${
+                {`Question${props.item.questions.length > 1 ? "s" : ""} : ${
                   props.item.questions.length
                 }`}
               </Text>
