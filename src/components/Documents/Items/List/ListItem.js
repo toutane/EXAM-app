@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { screenWidth } from "../../../../utils/dimensions";
 import { Feather } from "@expo/vector-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 const moment = require("moment");
 
 import BottomInputModal from "../../../Modals/BottomInputModal";
@@ -11,6 +9,7 @@ import BookItem from "./BookItem";
 import NoteItem from "./NoteItem";
 
 export default ListItem = props => {
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
   const [isFavorite, setIsFavorite] = useState(props.item.isFavorite);
   useEffect(() => setIsFavorite(props.item.isFavorite), [
     props.item.isFavorite
@@ -35,9 +34,17 @@ export default ListItem = props => {
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             {props.item.type === "exam" ? (
-              <NoteItem {...props} />
+              <NoteItem
+                {...props}
+                isOptionsVisible={isOptionsVisible}
+                setIsOptionsVisible={setIsOptionsVisible}
+              />
             ) : (
-              <BookItem {...props} />
+              <BookItem
+                {...props}
+                isOptionsVisible={isOptionsVisible}
+                setIsOptionsVisible={setIsOptionsVisible}
+              />
             )}
             <View
               style={{
@@ -71,12 +78,15 @@ export default ListItem = props => {
             </View>
           </View>
           <View style={{ flexDirection: "row", marginRight: 10 }}>
-            <TouchableOpacity onPress={() => props.setIsOptionsVisible(true)}>
+            <TouchableOpacity onPress={() => setIsOptionsVisible(true)}>
               <Feather name="chevron-down" color={props.theme.blue} size={25} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
-                props.update_item(props.item, props.item.title, !isFavorite)
+                props.update_item(props.item, {
+                  title: props.item.title,
+                  isFavorite: !props.item.isFavorite
+                })
               }
             >
               {/* <FontAwesomeIcon
@@ -105,8 +115,8 @@ export default ListItem = props => {
       </TouchableOpacity>
       <BottomInputModal
         {...props}
-        isVisible={props.isOptionsVisible}
-        setIsVisible={props.setIsOptionsVisible}
+        isVisible={isOptionsVisible}
+        setIsVisible={setIsOptionsVisible}
         content="itemContent"
       />
     </View>

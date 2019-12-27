@@ -1,10 +1,9 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { View } from "react-native";
 
 export default NoteItem = props => {
   return (
-    <TouchableOpacity
-      onPress={() => alert("card pressed")}
+    <View
       style={{
         marginLeft: 5,
         marginTop: 70,
