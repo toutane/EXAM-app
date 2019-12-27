@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
@@ -9,28 +9,45 @@ import BookItem from "./BookItem";
 import NoteItem from "./NoteItem";
 
 export default CardItem = props => {
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+
   return (
     <View>
-      <View style={{ alignItems: "center", marginLeft: 30 }}>
+      <TouchableOpacity
+        style={{ alignItems: "center", marginLeft: 30 }}
+        onPress={() =>
+          props.item.type === "exam"
+            ? props.navigation.navigate("Exam", { currentItem: props.item })
+            : null
+        }
+      >
         {props.item.type === "exam" ? (
-          <NoteItem {...props} />
+          <NoteItem
+            {...props}
+            isOptionsVisible={isOptionsVisible}
+            setIsOptionsVisible={setIsOptionsVisible}
+          />
         ) : (
-          <BookItem {...props} />
+          <BookItem
+            {...props}
+            isOptionsVisible={isOptionsVisible}
+            setIsOptionsVisible={setIsOptionsVisible}
+          />
         )}
         <TouchableOpacity
           style={{ paddingVertical: 7 }}
-          onPress={() => props.setIsOptionsVisible(true)}
+          onPress={() => setIsOptionsVisible(true)}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
                 fontFamily: "sf-text-regular",
-                fontSize: 18,
+                fontSize: 15,
                 color: props.theme.blue
               }}
             >
-              {props.item.title.length >= 6
-                ? props.item.title.slice(0, 6) + "..."
+              {props.item.title.length >= 12
+                ? props.item.title.slice(0, 9) + "..."
                 : props.item.title}
             </Text>
             <Feather name="chevron-down" color={props.theme.blue} size={14} />
@@ -39,7 +56,12 @@ export default CardItem = props => {
         <Text
           style={{
             top: -6,
-            fontSize: 12,
+            fontSize:
+              moment(props.item.creation_date)
+                .startOf("min")
+                .fromNow() === "a few seconds ago"
+                ? 10
+                : 12,
             fontFamily: "sf-text-regular",
             color: props.theme.gray
           }}
@@ -48,11 +70,11 @@ export default CardItem = props => {
             .startOf("min")
             .fromNow()}
         </Text>
-      </View>
+      </TouchableOpacity>
       <BottomInputModal
         {...props}
-        isVisible={props.isOptionsVisible}
-        setIsVisible={props.setIsOptionsVisible}
+        isVisible={isOptionsVisible}
+        setIsVisible={setIsOptionsVisible}
         content="itemContent"
       />
     </View>
