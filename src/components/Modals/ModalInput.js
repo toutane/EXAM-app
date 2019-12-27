@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Text, TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput } from "react-native";
 
 export default ModalInput = props => {
-  const [title, setTitle] = useState(props.item.title);
   const [newTitle, setNewTitle] = useState(props.item.title);
   useEffect(() => {
-    newTitle !== title && props.update_item(props.item, newTitle);
+    !props.isVisible &&
+      props.update_item(props.item, {
+        title: newTitle,
+        isFavorite: props.item.isFavorite
+      });
   }, [props.isVisible]);
   return (
     <View>
