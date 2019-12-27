@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Button, ScrollView, Animated } from "react-native";
-import { screenHeight, screenWidth } from "../../utils/dimensions";
+import React, { useState, useContext } from "react";
+import { View, ScrollView, Animated } from "react-native";
+import { screenHeight } from "../../utils/dimensions";
 
 import { ThemeContext } from "../../contexts/theme-context";
 
 import Hr from "../Hr/Hr";
 import DocsHeader from "./Header";
 import FilterBar from "./FilterBar";
-import DocsFlatList from "./FlatList";
+import DocsFlatList from "./DocsList";
 
 export default DocsView = props => {
-  const { theme, switchTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const [filterBy, setFilterBy] = useState(0);
   const [viewMode, setViewMode] = useState("List");
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  // useEffect(() => console.log(filterBy), [filterBy]);
   _getTitleOpacity = () => {
     return scrollY.interpolate({
       inputRange: [0, 35, 36, 100],
@@ -70,7 +69,6 @@ export default DocsView = props => {
           filterBy={filterBy}
           setFilterBy={setFilterBy}
         />
-        {/* <Button title="switch theme" onPress={() => switchTheme()}></Button> */}
       </ScrollView>
       <DocsHeader {...props} scrollY={scrollY} header="Documents" />
     </View>

@@ -5,8 +5,8 @@ import { ItemContext } from "../../contexts/item-context";
 import { ExamContext } from "../../contexts/exam-context";
 import { BookContext } from "../../contexts/book-context";
 
-import CardView from "./Items/Card/CardViewMode";
-import ListView from "./Items/List/ListViewMode";
+import CardItem from "./Items/Card/CardItem";
+import ListItem from "./Items/List/ListItem";
 import CreateCardItem from "./Items/Card/CreateCardItem";
 import CreateListItem from "./Items/List/CreateListItem";
 
@@ -33,15 +33,6 @@ export default DocsFlatList = props => {
           if (a.title > b.title) return 1;
           return 0;
         });
-  function createItem(item) {
-    create_item(item);
-  }
-  function duplicateItem(item) {
-    duplicate_item(item);
-  }
-  function deleteItem(item) {
-    delete_item(item);
-  }
   return (
     <View>
       {props.viewMode === "Card" ? (
@@ -54,22 +45,20 @@ export default DocsFlatList = props => {
         >
           {sortedDocs.map((item, index) =>
             item.type !== "create" ? (
-              <CardView
+              <CardItem
                 {...props}
                 key={index}
                 item={item}
-                deleteItem={item => deleteItem(item)}
-                update_item={(item, newTitle, isFavorite) =>
-                  update_item(item, newTitle, isFavorite)
-                }
-                duplicateItem={item => duplicateItem(item)}
+                delete_item={delete_item}
+                update_item={update_item}
+                duplicate_item={duplicate_item}
               />
             ) : (
               <CreateCardItem
                 {...props}
                 key={index}
                 item={item}
-                createItem={item => createItem(item)}
+                create_item={create_item}
               />
             )
           )}
@@ -78,22 +67,20 @@ export default DocsFlatList = props => {
         <ScrollView style={{ marginBottom: 200, marginTop: 10 }}>
           {sortedDocs.map((item, index) =>
             item.type !== "create" ? (
-              <ListView
+              <ListItem
                 {...props}
                 key={index}
                 item={item}
-                deleteItem={item => deleteItem(item)}
-                update_item={(item, newTitle, isFavorite) =>
-                  update_item(item, newTitle, isFavorite)
-                }
-                duplicateItem={item => duplicateItem(item)}
+                delete_item={delete_item}
+                update_item={update_item}
+                duplicate_item={duplicate_item}
               />
             ) : (
               <CreateListItem
                 {...props}
                 key={index}
                 item={item}
-                createItem={item => createItem(item)}
+                create_item={create_item}
               />
             )
           )}
