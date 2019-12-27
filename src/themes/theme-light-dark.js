@@ -10,7 +10,8 @@ export const themeLD = [
     gray4: "rgb(209, 209, 214)",
     gray5: "rgb(229, 229, 234)",
     gray6: "rgb(242, 242, 247)",
-    hr: "rgba(0 ,0 ,0 ,0.1)"
+    hr: "rgba(0 ,0 ,0 ,0.1)",
+    green: "rgb(48 ,209 ,88)"
   },
   {
     theme: "dark",
@@ -23,6 +24,7 @@ export const themeLD = [
     gray4: "rgb(99, 99, 102)",
     gray5: "rgb(44 ,44 ,46)",
     gray6: "rgb(28, 28, 30)",
-    hr: "rgba(255 ,255 ,255 ,0.2)"
+    hr: "rgba(255 ,255 ,255 ,0.2)",
+    green: "rgb(48 ,209 ,88)"
   }
 ];
