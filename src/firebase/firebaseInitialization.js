@@ -6,6 +6,7 @@ import { ThemeProvider } from "../contexts/theme-context";
 import { AuthContext } from "../contexts/auth-context";
 import { UserProvider } from "../contexts/user-context";
 import { ItemProvider } from "../contexts/item-context";
+import { QuestionProvider } from "../contexts/question-context";
 import { ExamProvider } from "../contexts/exam-context";
 import { BookProvider } from "../contexts/book-context";
 
@@ -15,6 +16,14 @@ export default function FirebaseInitialized(props) {
   const { setAuthenticated } = useContext(AuthContext);
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  useEffect(
+    () =>
+      loading
+        ? console.log("\x1b[33m", "Firebase", "\x1b[0m", "initialization...")
+        : console.log("\x1b[32m", "Firebase", "\x1b[0m", "initialized"),
+    [loading]
+  );
 
   useEffect(() => {
     firebase.isInitialized().then(val => {
@@ -26,13 +35,16 @@ export default function FirebaseInitialized(props) {
       });
     });
   }, []);
+
   return firebaseInitialized !== false ? (
     <ThemeProvider>
       <UserProvider>
         <ItemProvider>
           <ExamProvider>
             <BookProvider>
-              <Routes />
+              <QuestionProvider>
+                <Routes />
+              </QuestionProvider>
             </BookProvider>
           </ExamProvider>
         </ItemProvider>

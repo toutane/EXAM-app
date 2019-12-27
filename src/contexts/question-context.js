@@ -6,6 +6,7 @@ import { UserContext } from "./user-context";
 const QuestionContext = React.createContext();
 const { Provider } = QuestionContext;
 
+const uuidv4 = require("uuid/v4");
 const moment = require("moment");
 
 const QuestionProvider = props => {
@@ -20,15 +21,17 @@ const QuestionProvider = props => {
       .update({
         questions: exam.questions.concat([
           {
+            id: uuidv4(),
             question: item.question,
             answer: item.answer,
-            status: "",
-            creation_date: moment().format()
+            status: "check",
+            creation_date: moment().format(),
+            update_date: moment().format()
           }
         ])
       });
   }
-  update_question = (exam, itemQ, newItem) => {
+  update_question = (exam, questionID, newItem) => {
     firebase.db
       .collection("users")
       .doc(currentUserId)
@@ -36,26 +39,29 @@ const QuestionProvider = props => {
       .doc(exam.id)
       .update({
         questions: exam.questions
-          .filter(i => i.question !== itemQ)
+          .filter(i => i.id !== questionID)
           .concat([
             {
+              id: questionID,
               question: newItem.question,
               answer: newItem.answer,
               status: newItem.status,
-              creation_date: moment().format()
+              creation_date: newItem.creation_date,
+              update_date: moment().format()
             }
           ])
       });
   };
-  delete_item = item => {
+  delete_question = (exam, questionID) => {
     firebase.db
       .collection("users")
       .doc(currentUserId)
-      .collection(item.type + "s")
-      .doc(item.id)
-      .delete()
-      .then(() => setCurrentItem({ title: "" })),
-      console.log("\x1b[31m", "Delete", "\x1b[0m" + item.id);
+      .collection("exams")
+      .doc(exam.id)
+      .update({
+        questions: exam.questions.filter(i => i.id !== questionID)
+      });
+    console.log("\x1b[31m", "Delete", "\x1b[0m" + questionID);
   };
 
   return (
@@ -63,7 +69,7 @@ const QuestionProvider = props => {
       value={{
         add_question,
         update_question,
-        delete_item
+        delete_question
       }}
     >
       {props.children}
