@@ -12,8 +12,10 @@ export default BottomModal = props => {
       function: () =>
         props.create_item({
           type: "exam",
-          title: "Quick exam",
-          color: "rgb(255, 204, 0)"
+          title: "Untitled",
+          // color: "rgb(255, 204, 0)"
+          // color: "rgb(0, 122, 255)",
+          color: "rgb(90, 200, 250)"
         })
     },
     {
