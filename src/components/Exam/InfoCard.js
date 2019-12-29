@@ -12,19 +12,29 @@ export default InfoCard = props => {
           borderRadius: 12,
           paddingHorizontal: 20,
           paddingVertical: 20,
-          marginRight: 20,
-          width: "60%"
+          width: "100%"
         }}
       >
-        <Text
-          style={{
-            fontSize: 30,
-            fontFamily: "sf-display-bold",
-            color: props.theme.fontColor
-          }}
-        >
-          50% success
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "sf-display-bold",
+              color: props.theme.fontColor
+            }}
+          >
+            50% success
+          </Text>
+          <Text
+            style={{
+              fontSize: 30,
+              fontFamily: "sf-display-bold",
+              color: props.theme.fontColor
+            }}
+          >
+            5:23
+          </Text>
+        </View>
         <View
           style={{
             marginTop: 15
@@ -51,15 +61,6 @@ export default InfoCard = props => {
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          backgroundColor: props.exam.color,
-          borderRadius: 12,
-          paddingHorizontal: 20,
-          paddingVertical: 20,
-          width: "35%"
-        }}
-      />
     </View>
   );
 };
