@@ -6,8 +6,10 @@ import { ThemeContext } from "../../contexts/theme-context";
 import { ItemContext } from "../../contexts/item-context";
 import { QuestionContext } from "../../contexts/question-context";
 
+import Hr from "../Hr/Hr";
 import Header from "./Header";
 import QuestionList from "./QuestionList";
+import InfoCard from "./InfoCard";
 
 export default ExamView = props => {
   const { theme } = useContext(ThemeContext);
@@ -50,10 +52,7 @@ export default ExamView = props => {
           <View
             style={{
               marginHorizontal: 15,
-              marginTop: 100,
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexDirection: "row"
+              marginTop: 100
             }}
           >
             <Animated.Text
@@ -66,7 +65,9 @@ export default ExamView = props => {
             >
               {currentItem.title}
             </Animated.Text>
+            <Hr padding={30} />
           </View>
+          <InfoCard theme={theme} exam={currentItem} />
           <QuestionList
             theme={theme}
             exam={currentItem}
