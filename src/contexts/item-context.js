@@ -97,7 +97,8 @@ const ItemProvider = props => {
         title: newItem.title,
         questions: item.questions,
         isFavorite: newItem.isFavorite,
-        creation_date: moment().format()
+        creation_date:
+          newItem.title !== item.title ? moment().format() : item.creation_date
       }),
       console.log("\x1b[33m", "Update", "\x1b[0m" + item.id);
   };
