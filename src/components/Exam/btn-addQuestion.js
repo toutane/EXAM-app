@@ -7,37 +7,36 @@ export default AddQuestionBtn = props => {
   const { add_question } = useContext(QuestionContext);
 
   return (
-    <View>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        title="Add question"
-        onPress={() => {
-          add_question(props.exam, {
-            question: "",
-            answer: ""
-          }),
-            props.setAutoFocus(true);
-        }}
+    <TouchableOpacity
+      activeOpacity={0.8}
+      title="Add question"
+      onPress={() => {
+        add_question(props.exam, {
+          question: "",
+          answer: ""
+        }),
+          props.setAutoFocus(true);
+      }}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: props.exam.color,
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
+        borderRadius: props.nbQ >= 1 ? 0 : 12,
+        paddingVertical: 10,
+        marginTop: props.nbQ >= 1 ? 0 : 20
+      }}
+    >
+      <Text
         style={{
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: props.theme.blue,
-          borderBottomLeftRadius: 12,
-          borderBottomRightRadius: 12,
-          borderRadius: props.nbQ >= 1 ? 0 : 12,
-          paddingVertical: 10
+          color: "white",
+          fontSize: 19,
+          fontFamily: "sf-display-semibold"
         }}
       >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 19,
-            fontFamily: "sf-display-semibold"
-          }}
-        >
-          Add question
-        </Text>
-      </TouchableOpacity>
-    </View>
+        Add question
+      </Text>
+    </TouchableOpacity>
   );
 };
