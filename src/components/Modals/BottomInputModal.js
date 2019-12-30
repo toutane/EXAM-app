@@ -64,10 +64,7 @@ export default BottomInputModal = props => {
           />
           <View
             style={{
-              backgroundColor: "transparent",
-              bottom: 0,
-              left: 0,
-              right: 0
+              backgroundColor: "transparent"
             }}
           >
             <View

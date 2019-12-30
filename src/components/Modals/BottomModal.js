@@ -14,8 +14,8 @@ export default BottomModal = props => {
           type: "exam",
           title: "Untitled",
           // color: "rgb(255, 204, 0)"
-          // color: "rgb(0, 122, 255)",
-          color: "rgb(90, 200, 250)"
+          color: "rgb(0, 122, 255)"
+          // color: "rgb(90, 200, 250)"
         })
     },
     {
@@ -44,57 +44,66 @@ export default BottomModal = props => {
         actionsBordered
         modalStyle={{
           borderRadius: 0,
-          top: 320,
           backgroundColor: "transparent"
         }}
         modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
       >
-        <View style={{ backgroundColor: "transparent" }}>
-          <View
-            style={{
-              backgroundColor: props.theme.gray6,
-              paddingLeft: 15,
-              borderRadius: 12,
-              height: 115,
-              width: "100%",
-              justifyContent: "center"
-            }}
-            onPress={() => props.setIsVisible(false)}
-          >
-            {content
-              .filter((e, i) => i !== content.length - 1)
-              .map((e, i) => (
-                <ModalItem
-                  {...props}
-                  key={i}
-                  item={e}
-                  last={content.length - 2 === i ? true : false}
-                />
-              ))}
-          </View>
+        <View>
           <TouchableOpacity
-            style={{
-              marginTop: 7,
-              backgroundColor: props.theme.gray6,
-              borderRadius: 12,
-              height: 50,
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
             onPress={() => props.setIsVisible(false)}
-          >
-            <Text
+            style={{
+              width: "100%",
+              backgroundColor: "transparent",
+              height: 620
+            }}
+          />
+          <View style={{ backgroundColor: "transparent" }}>
+            <View
               style={{
-                position: "absolute",
-                fontFamily: "sf-display-semibold",
-                fontSize: 19,
-                color: props.theme.fontColor
+                backgroundColor: props.theme.gray6,
+                paddingLeft: 15,
+                borderRadius: 12,
+                height: 115,
+                width: "100%",
+                justifyContent: "center"
               }}
+              onPress={() => props.setIsVisible(false)}
             >
-              {content[content.length - 1].title}
-            </Text>
-          </TouchableOpacity>
+              {content
+                .filter((e, i) => i !== content.length - 1)
+                .map((e, i) => (
+                  <ModalItem
+                    {...props}
+                    key={i}
+                    item={e}
+                    last={content.length - 2 === i ? true : false}
+                  />
+                ))}
+            </View>
+            <TouchableOpacity
+              style={{
+                marginTop: 7,
+                backgroundColor: props.theme.gray6,
+                borderRadius: 12,
+                height: 50,
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onPress={() => props.setIsVisible(false)}
+            >
+              <Text
+                style={{
+                  position: "absolute",
+                  fontFamily: "sf-display-semibold",
+                  fontSize: 19,
+                  color: props.theme.fontColor
+                }}
+              >
+                {content[content.length - 1].title}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
