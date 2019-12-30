@@ -11,6 +11,7 @@ export default FilterBar = props => {
         flexDirection: "row",
         justifyContent: "center",
         marginTop: 15,
+        // marginBottom: 5,
         alignItems: "center"
       }}
     >

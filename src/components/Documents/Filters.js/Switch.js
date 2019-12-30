@@ -13,7 +13,7 @@ export default Switch = props => {
           props.setFilterBy(e.nativeEvent.selectedSegmentIndex),
             Haptics.selectionAsync();
         }}
-        style={{ width: 200 }}
+        style={{ width: 200, height: 30 }}
       />
     </View>
   );
