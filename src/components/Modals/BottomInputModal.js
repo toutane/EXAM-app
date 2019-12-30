@@ -1,6 +1,7 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Keyboard } from "react-native";
 import Modal, { SlideAnimation } from "react-native-modals";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
 import ModalItem from "./ModalItem";
 import ModalInput from "./ModalInput";
@@ -44,66 +45,85 @@ export default BottomInputModal = props => {
         actionsBordered
         modalStyle={{
           borderRadius: 0,
-          top: 225,
+          zIndex: 0,
+          // top: 225,
           backgroundColor: "transparent"
         }}
         modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
       >
-        <View
-          style={{
-            backgroundColor: "transparent"
-          }}
-        >
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              props.setIsVisible(false), Keyboard.dismiss();
+            }}
+            style={{
+              width: "100%",
+              backgroundColor: "transparent",
+              height: 450
+            }}
+          />
           <View
             style={{
-              backgroundColor: props.theme.gray6,
-              paddingLeft: 15,
-              borderRadius: 12,
-              height: 290,
-              width: "100%",
-              justifyContent: "center"
+              backgroundColor: "transparent",
+              bottom: 0,
+              left: 0,
+              right: 0
             }}
-            onPress={() => props.setIsVisible(false)}
           >
-            {content
-              .filter((e, i) => i !== content.length - 1)
-              .map((e, i) =>
-                e.title === "Input" ? (
-                  <ModalInput {...props} key={i} />
-                ) : (
-                  <ModalItem
-                    {...props}
-                    key={i}
-                    item={e}
-                    last={content.length - 2 === i ? true : false}
-                  />
-                )
-              )}
-          </View>
-          <TouchableOpacity
-            style={{
-              marginTop: 7,
-              backgroundColor: props.theme.gray6,
-              borderRadius: 12,
-              height: 50,
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            onPress={() => props.setIsVisible(false)}
-          >
-            <Text
+            <View
               style={{
-                position: "absolute",
-                fontFamily: "sf-display-semibold",
-                fontSize: 19,
-                color: props.theme.fontColor
+                backgroundColor: props.theme.gray6,
+                paddingLeft: 15,
+                borderRadius: 12,
+                height: 290,
+                width: "100%",
+                justifyContent: "center"
+              }}
+              onPress={() => props.setIsVisible(false)}
+            >
+              {content
+                .filter((e, i) => i !== content.length - 1)
+                .map((e, i) =>
+                  e.title === "Input" ? (
+                    <ModalInput {...props} key={i} />
+                  ) : (
+                    <ModalItem
+                      {...props}
+                      key={i}
+                      item={e}
+                      last={content.length - 2 === i ? true : false}
+                    />
+                  )
+                )}
+            </View>
+            <TouchableOpacity
+              style={{
+                marginTop: 7,
+                backgroundColor: props.theme.gray6,
+                borderRadius: 12,
+                height: 50,
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onPress={() => {
+                props.setIsVisible(false), Keyboard.dismiss();
               }}
             >
-              {content[content.length - 1].title}
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{
+                  position: "absolute",
+                  fontFamily: "sf-display-semibold",
+                  fontSize: 19,
+                  color: props.theme.fontColor
+                }}
+              >
+                {content[content.length - 1].title}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
+        <KeyboardSpacer topSpacing={260} />
       </Modal>
     </View>
   );
