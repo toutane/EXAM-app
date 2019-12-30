@@ -104,7 +104,7 @@ export default DocsHeader = props => {
             props.navigation.navigate("Account"), Haptics.selectionAsync();
           }}
         >
-          <FontAwesomeIcon icon={faUserCircle} size={23.5} color={theme.blue} />
+          <FontAwesomeIcon icon={faUserCircle} size={25} color={theme.blue} />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -120,7 +120,7 @@ export default DocsHeader = props => {
             props.navigation.navigate("Settings"), Haptics.selectionAsync();
           }}
         >
-          <Feather name="settings" size={23} color={theme.blue} />
+          <Feather name="settings" size={25} color={theme.blue} />
         </TouchableOpacity>
       </View>
     </View>

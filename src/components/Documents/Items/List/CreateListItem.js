@@ -28,7 +28,7 @@ export default CreateListItem = props => {
               height: 65,
               width: 50,
               backgroundColor: props.theme.backgroundColor,
-              borderWidth: 1,
+              borderWidth: 2,
               borderRadius: 8,
               borderStyle: "dashed",
               borderColor: props.theme.blue,
@@ -42,11 +42,11 @@ export default CreateListItem = props => {
             style={{
               marginLeft: 15,
               fontFamily: "sf-text-regular",
-              fontSize: 19,
+              fontSize: 20,
               color: props.theme.blue
             }}
           >
-            New
+            New...
           </Text>
         </View>
         <View

@@ -17,7 +17,7 @@ export default CreateCardItem = props => {
           height: 130,
           width: 100,
           backgroundColor: props.theme.backgroundColor,
-          borderWidth: 1,
+          borderWidth: 2,
           borderRadius: 8,
           borderStyle: "dashed",
           borderColor: props.theme.blue,
@@ -27,7 +27,12 @@ export default CreateCardItem = props => {
       >
         <Text style={{ fontSize: 40, color: props.theme.blue }}>+</Text>
       </View>
-      <Button title="New" onPress={() => setIsVisible(true)} />
+      <Button
+        style={{ fontSize: 20 }}
+        title="New..."
+        onPress={() => setIsVisible(true)}
+        color={props.theme.blue}
+      />
       <BottomModal
         {...props}
         isVisible={isVisible}

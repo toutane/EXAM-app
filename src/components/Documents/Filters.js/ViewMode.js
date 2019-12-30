@@ -14,8 +14,8 @@ export default ViewMode = props => {
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        height: 25,
-        width: 25,
+        height: 30,
+        width: 30,
         backgroundColor:
           props.viewMode === "Card"
             ? props.theme.backgroundColor

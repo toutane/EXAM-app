@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { screenWidth } from "../../../../utils/dimensions";
 import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+
 const moment = require("moment");
 
 import BottomInputModal from "../../../Modals/BottomInputModal";
@@ -32,7 +34,12 @@ export default ListItem = props => {
             justifyContent: "space-between"
           }}
         >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
             {props.item.type === "exam" ? (
               <NoteItem
                 {...props}
@@ -50,13 +57,15 @@ export default ListItem = props => {
               style={{
                 flexDirection: "column",
                 marginLeft: 15,
-                marginTop: 8
+                marginTop: 8,
+                width: 215
               }}
             >
               <Text
+                numberOfLines={1}
                 style={{
                   fontFamily: "sf-text-regular",
-                  fontSize: 18,
+                  fontSize: 19,
                   color: props.theme.blue,
                   marginBottom: 8
                 }}
@@ -79,15 +88,21 @@ export default ListItem = props => {
           </View>
           <View style={{ flexDirection: "row", marginRight: 10 }}>
             <TouchableOpacity onPress={() => setIsOptionsVisible(true)}>
-              <Feather name="chevron-down" color={props.theme.blue} size={25} />
+              <Feather
+                name="chevron-down"
+                color={props.theme.blue}
+                size={30}
+                style={{ marginRight: 10 }}
+              />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
+              onPress={() => {
                 props.update_item(props.item, {
                   title: props.item.title,
                   isFavorite: !props.item.isFavorite
-                })
-              }
+                }),
+                  Haptics.selectionAsync();
+              }}
             >
               {/* <FontAwesomeIcon
                 icon={faBookmark}
@@ -98,7 +113,7 @@ export default ListItem = props => {
               <Feather
                 name="bookmark"
                 color={isFavorite ? "red" : props.theme.blue}
-                size={20}
+                size={25}
                 style={{ marginLeft: 5 }}
               />
             </TouchableOpacity>

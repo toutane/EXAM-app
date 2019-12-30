@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Animated, ScrollView } from "react-native";
+import { View, Animated, ScrollView, KeyboardAvoidingView } from "react-native";
 import { screenHeight } from "../../utils/dimensions";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { ThemeContext } from "../../contexts/theme-context";
 import { ItemContext } from "../../contexts/item-context";
@@ -9,7 +10,6 @@ import { QuestionContext } from "../../contexts/question-context";
 import Hr from "../Hr/Hr";
 import Header from "./Header";
 import QuestionList from "./QuestionList";
-import InfoCard from "./InfoCard";
 
 export default ExamView = props => {
   const { theme } = useContext(ThemeContext);
@@ -38,59 +38,57 @@ export default ExamView = props => {
         backgroundColor: theme.backgroundColor
       }}
     >
-      <View>
-        <ScrollView
-          style={{ height: screenHeight, zIndex: 1 }}
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: scrollY } } }
-          ])}
-          scrollEventThrottle={16}
-          snapToAlignment={"start"}
-          snapToInterval={61}
-          showsVerticalScrollIndicator={false}
+      <KeyboardAwareScrollView
+        keyboardOpeningTime={0}
+        style={{ height: screenHeight, zIndex: 1 }}
+        onScroll={Animated.event([
+          { nativeEvent: { contentOffset: { y: scrollY } } }
+        ])}
+        scrollEventThrottle={16}
+        snapToAlignment={"start"}
+        snapToInterval={61}
+        showsVerticalScrollIndicator={false}
+      >
+        <View
+          style={{
+            marginHorizontal: 15,
+            marginTop: 100
+          }}
         >
-          <View
+          <Animated.Text
             style={{
-              marginHorizontal: 15,
-              marginTop: 100
+              opacity: titleOpacity,
+              fontSize: 34,
+              fontFamily: "sf-display-bold",
+              color: theme.fontColor
             }}
           >
-            <Animated.Text
-              style={{
-                opacity: titleOpacity,
-                fontSize: 34,
-                fontFamily: "sf-display-bold",
-                color: theme.fontColor
-              }}
-            >
-              {currentItem.title}
-            </Animated.Text>
-            <Hr padding={30} />
-          </View>
-          <InfoCard theme={theme} exam={currentItem} />
-          <QuestionList
-            theme={theme}
-            exam={currentItem}
-            update_question={update_question}
-            delete_question={delete_question}
-            nbQ={currentItem.questions.length}
-          />
-        </ScrollView>
-        <Header
-          {...props}
+            {currentItem.title}
+          </Animated.Text>
+          <Hr padding={30} />
+        </View>
+        <QuestionList
           theme={theme}
-          item={currentItem}
-          update_item={(item, newTitle, isFavorite) =>
-            update_item(item, newTitle, isFavorite)
-          }
-          deleteItem={item => deleteItem(item)}
-          backHeader="Documents"
-          backBtn={true}
-          scrollY={scrollY}
-          isOptionsVisible={isOptionsVisible}
-          setIsOptionsVisible={setIsOptionsVisible}
+          exam={currentItem}
+          update_question={update_question}
+          delete_question={delete_question}
+          nbQ={currentItem.questions.length}
         />
-      </View>
+      </KeyboardAwareScrollView>
+      <Header
+        {...props}
+        theme={theme}
+        item={currentItem}
+        update_item={(item, newTitle, isFavorite) =>
+          update_item(item, newTitle, isFavorite)
+        }
+        deleteItem={item => deleteItem(item)}
+        backHeader="Documents"
+        backBtn={true}
+        scrollY={scrollY}
+        isOptionsVisible={isOptionsVisible}
+        setIsOptionsVisible={setIsOptionsVisible}
+      />
     </View>
   );
 };
