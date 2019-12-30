@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Keyboard } from "react-native";
 
 export default ModalInput = props => {
   const [newTitle, setNewTitle] = useState(props.item.title);
   useEffect(() => {
-    !props.isVisible &&
+    newTitle !== props.item.title &&
+      !props.isVisible &&
       props.update_item(props.item, {
         title: newTitle,
         isFavorite: props.item.isFavorite
@@ -25,6 +26,10 @@ export default ModalInput = props => {
           color: props.theme.fontColor
         }}
         onChangeText={e => setNewTitle(e)}
+        // blurOnSubmit={true}
+        // onSubmitEditing={
+        //   (() => console.log("keyboard dismissed"), Keyboard.dismiss())
+        // }
         value={newTitle}
         autoCapitalize="none"
         autoFocus={false}
