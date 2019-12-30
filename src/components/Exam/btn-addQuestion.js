@@ -23,15 +23,16 @@ export default AddQuestionBtn = props => {
         backgroundColor: props.exam.color,
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
-        borderRadius: props.nbQ >= 1 ? 0 : 12,
+        borderRadius: 12,
+        marginTop: 20,
         paddingVertical: 10,
-        marginTop: props.nbQ >= 1 ? 0 : 20
+        width: "35%"
       }}
     >
       <Text
         style={{
           color: "white",
-          fontSize: 19,
+          fontSize: 17,
           fontFamily: "sf-display-semibold"
         }}
       >
