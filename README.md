@@ -1,6 +1,6 @@
 # EXAM
 
-This app brings you the power of self evaluation 🔥
+This app brings you the power of self evaluation 
 
 ## Install
 
