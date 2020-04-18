@@ -1,5 +1,9 @@
 # EXAM
 
+```shell
+Project in development
+```
+
 This app brings you the power of self evaluation 
 
 ## Install
